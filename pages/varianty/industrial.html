@@ -454,6 +454,21 @@
   </style>
 </head>
 <body>
+  <script>
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentVariant = urlParams.get('variant');
+      if (!currentVariant) {
+        const savedVariant = localStorage.getItem('shrtname_variant');
+        if (savedVariant) {
+          window.location.href = '/?variant=' + savedVariant;
+        }
+      } else {
+        localStorage.setItem('shrtname_variant', currentVariant);
+      }
+    })();
+  </script>
+
   <div class="container">
     <header class="header">
       <h1 class="logo">shrt.name</h1>
@@ -534,14 +549,11 @@
       </div>
     </div>
 
-    <footer class="footer">
-      <div class="footer-info">
-        <span>shrt.name</span>
-        <span>2024</span>
-        <span>MIT_LICENSE</span>
-      </div>
-      <div>BUILD: 2024.01.11.01</div>
-    </footer>
+    
+  <footer style="text-align: center; padding: 2rem; font-family: monospace; font-size: 0.75rem; color: #666; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 3rem; border-top: 1px solid #333;">
+    shrt.name // 2026 // MIT // BUILD: 2026.02.15.01
+  </footer>
+
   </div>
 
   <script>
@@ -634,5 +646,65 @@
     console.log('%c> SHRT.NAME SYSTEM INITIALIZED', 'color: #00FF41; font-weight: bold;');
     console.log('%c> WAITING FOR USER INPUT...', 'color: #0A0A0A;');
   </script>
+
+  <div class="style-selector">
+    <span class="selector-label">STYLE:</span>
+    <a href="/?variant=cyberglitch" class="style-link ">⚡ CYBER</a>
+    <a href="/?variant=synthwave" class="style-link ">🌆 SYNTH</a>
+    <a href="/?variant=luxury" class="style-link ">💎 LUXURY</a>
+    <a href="/?variant=playful" class="style-link ">🎈 PLAY</a>
+    <a href="/?variant=industrial" class="style-link active">🏭 INDUST</a>
+    <a href="/?variant=brutalist" class="style-link ">⬛ BRUTAL</a>
+  </div>
+  
+  <style>
+    .style-selector {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00f3ff;
+      padding: 12px 20px;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .selector-label {
+      color: #666;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .style-link {
+      color: #b8b8d4;
+      text-decoration: none;
+      padding: 4px 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .style-link:hover {
+      color: #00f3ff;
+      border-color: #00f3ff;
+    }
+    .style-link.active {
+      background: #00f3ff;
+      color: #0a0a0f;
+      font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .style-selector {
+        bottom: 10px;
+        padding: 8px 12px;
+        gap: 8px;
+        font-size: 0.625rem;
+      }
+    }
+  </style>
 </body>
 </html>
