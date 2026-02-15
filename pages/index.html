@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shrt.name // COMPRESS THE INTERNET</title>
+  <meta name="description" content="URL shortener from the future. Compress your digital links.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- CRT Overlay -->
+  <div class="crt-overlay">
+    <div class="scanlines"></div>
+    <div class="vignette"></div>
+  </div>
+
+  <!-- Animated Background Grid -->
+  <div class="grid-background">
+    <div class="grid-horizontal"></div>
+    <div class="grid-vertical"></div>
+    <div class="grid-glow"></div>
+  </div>
+
+  <!-- Main Container -->
+  <main class="main-container">
+    <!-- Header -->
+    <header class="header">
+      <h1 class="logo" data-text="SHRT//NAME">
+        <span class="logo-prefix">SHRT</span><span class="logo-separator">//</span><span class="logo-suffix">NAME</span>
+      </h1>
+      <p class="tagline glitch-text" data-text="COMPRESS//THE//INTERNET">
+        COMPRESS//THE//INTERNET
+      </p>
+    </header>
+
+    <!-- Shortening Form -->
+    <section class="form-section">
+      <form id="shorten-form" class="url-form">
+        <!-- URL Input -->
+        <div class="input-group">
+          <label class="input-label" for="url-input">
+            <span class="label-icon">⏣</span>
+            <span class="label-text">INPUT_URL_STREAM</span>
+            <span class="label-status"></span>
+          </label>
+          <input
+            type="url"
+            id="url-input"
+            class="neon-input"
+            placeholder="https://..."
+            required
+            autocomplete="off"
+          />
+          <div class="input-border"></div>
+          <div class="input-glow"></div>
+        </div>
+
+        <!-- Custom Code Input -->
+        <div class="input-group">
+          <label class="input-label" for="code-input">
+            <span class="label-icon">⏤</span>
+            <span class="label-text">CUSTOM_CODENAME</span>
+            <span class="label-optional">[OPTIONAL]</span>
+          </label>
+          <input
+            type="text"
+            id="code-input"
+            class="neon-input"
+            placeholder="ALT_CODENAME"
+            autocomplete="off"
+          />
+          <div class="input-border"></div>
+          <div class="input-glow"></div>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="cyber-button" id="submit-btn">
+          <span class="button-text">INITIATE_COMPRESSION</span>
+          <span class="button-glitch"></span>
+          <div class="button-scan"></div>
+          <div class="button-glow"></div>
+        </button>
+      </form>
+    </section>
+
+    <!-- Result Section -->
+    <section id="result" class="result-section hidden">
+      <div class="result-container">
+        <div class="result-header">
+          <span class="result-status">✓</span>
+          <h2 class="result-title">COMPRESSION_COMPLETE</h2>
+        </div>
+
+        <div class="result-content">
+          <!-- Short URL -->
+          <div class="result-field">
+            <label class="result-label">COMPRESSED_URL</label>
+            <div class="result-value">
+              <a href="#" id="short-url" target="_blank" class="result-link"></a>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div class="result-stats">
+            <div class="stat-item">
+              <span class="stat-label">CLICKS</span>
+              <span class="stat-value" id="stat-clicks">0</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">TYPE</span>
+              <span class="stat-value" id="stat-type">AUTO</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-label">CODE</span>
+              <span class="stat-value" id="stat-code"></span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="result-actions">
+            <button class="action-button copy-btn" id="copy-btn">
+              <span class="btn-icon">⎘</span>
+              <span class="btn-text">COPY_TO_CLIPBOARD</span>
+            </button>
+            <button class="action-button stats-btn" id="view-stats-btn">
+              <span class="btn-icon">📊</span>
+              <span class="btn-text">VIEW_ANALYTICS</span>
+            </button>
+          </div>
+
+          <!-- QR Code -->
+          <div class="qr-section">
+            <div class="qr-container">
+              <img id="qr-code" src="" alt="QR CODE" class="qr-image" loading="lazy">
+              <div class="qr-overlay"></div>
+            </div>
+            <a href="#" id="qr-download" target="_blank" class="qr-download">DOWNLOAD_QR</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Modal -->
+    <div id="stats-modal" class="modal hidden">
+      <div class="modal-overlay"></div>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title">ANALYTICS_DATA</h3>
+          <button class="modal-close" id="close-modal">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="stats-grid">
+            <div class="stats-row">
+              <span class="stats-label">TOTAL_CLICKS</span>
+              <span class="stats-value" id="modal-clicks">0</span>
+            </div>
+            <div class="stats-row">
+              <span class="stats-label">CREATED_AT</span>
+              <span class="stats-value" id="modal-created"></span>
+            </div>
+            <div class="stats-row">
+              <span class="stats-label">ORIGINAL_URL</span>
+              <span class="stats-value" id="modal-url"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p class="footer-text">
+      <span class="footer-separator">⏣</span>
+      <span class="footer-link">SHRT.NAME</span>
+      <span class="footer-separator">//</span>
+      <span class="footer-year">2024</span>
+      <span class="footer-separator">//</span>
+      <span class="footer-status">SYSTEM_ONLINE</span>
+    </p>
+  </footer>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

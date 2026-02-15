@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shrt.name // URL_SHORTENER_V1.0</title>
+  <meta name="description" content="No-nonsense URL shortening tool. Efficient. Functional.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Source+Code+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #0A0A0A;
+      --bg-secondary: #141414;
+      --bg-tertiary: #1E1E1E;
+      --text-primary: #E5E5E5;
+      --text-secondary: #A0A0A0;
+      --text-muted: #6B6B6B;
+      --accent-primary: #00FF41;
+      --accent-secondary: #008F11;
+      --border-color: #2A2A2A;
+      --grid-color: #1F1F1F;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-code: 'Source Code Pro', monospace;
+      --space-xs: 0.25rem;
+      --space-sm: 0.5rem;
+      --space-md: 1rem;
+      --space-lg: 2rem;
+      --border-thin: 1px;
+      --border-medium: 2px;
+      --border-thick: 4px;
+      --transition-instant: 0.1s ease-out;
+      --transition-fast: 0.2s ease-out;
+    }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      line-height: 1.5;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--space-md);
+      letter-spacing: 0.02em;
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(var(--grid-color) var(--border-thin), transparent),
+        linear-gradient(90deg, var(--grid-color) var(--border-thin), transparent);
+      background-size: 20px 20px;
+      background-position: 0 0;
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+      background: var(--bg-secondary);
+      border: var(--border-thick) solid var(--border-color);
+    }
+    .header {
+      background: var(--bg-tertiary);
+      border-bottom: var(--border-thick) solid var(--border-color);
+      padding: var(--space-md);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .logo {
+      font-family: var(--font-code);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .logo::before {
+      content: '>';
+      color: var(--accent-primary);
+      margin-right: var(--space-sm);
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    .header-meta {
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      color: var(--text-secondary);
+      text-align: right;
+      text-transform: uppercase;
+    }
+    .version {
+      display: block;
+      margin-bottom: var(--space-xs);
+      letter-spacing: 0.1em;
+    }
+    .status {
+      display: block;
+      color: var(--accent-primary);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .form {
+      padding: var(--space-lg);
+    }
+    .form-section {
+      margin-bottom: var(--space-lg);
+      border-bottom: var(--border-thin) solid var(--border-color);
+      padding-bottom: var(--space-md);
+    }
+    .form-section:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+    .form-title {
+      font-family: var(--font-code);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: var(--space-md);
+      display: flex;
+      align-items: center;
+      gap: var(--space-sm);
+    }
+    .form-title::before {
+      content: '[';
+      margin-right: var(--space-xs);
+    }
+    .form-title::after {
+      content: ']';
+      margin-left: var(--space-xs);
+    }
+    .form-group {
+      margin-bottom: var(--space-md);
+    }
+    .form-group:last-of-type {
+      margin-bottom: 0;
+    }
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-xs);
+    }
+    .form-input {
+      width: 100%;
+      padding: var(--space-sm) var(--space-sm);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 400;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      border: var(--border-thin) solid var(--border-color);
+      transition: all var(--transition-fast);
+    }
+    .form-input::placeholder {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+    }
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent-primary);
+      background: var(--bg-secondary);
+    }
+    .form-input:focus + .input-meta {
+      color: var(--accent-primary);
+    }
+    .input-meta {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: var(--space-xs);
+    }
+    .submit-button {
+      width: 100%;
+      padding: var(--space-md);
+      font-family: var(--font-code);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--bg-primary);
+      background: var(--accent-primary);
+      border: var(--border-medium) solid var(--accent-primary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: left;
+      position: relative;
+    }
+    .submit-button::before {
+      content: '>';
+      margin-right: var(--space-sm);
+    }
+    .submit-button:hover {
+      background: var(--text-primary);
+      border-color: var(--text-primary);
+      color: var(--bg-primary);
+    }
+    .submit-button:active {
+      transform: translate(2px, 2px);
+    }
+    .submit-button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      background: var(--text-secondary);
+      border-color: var(--text-secondary);
+    }
+    .result {
+      padding: var(--space-md);
+      background: var(--bg-tertiary);
+      border: var(--border-thin) solid var(--border-color);
+      border-left: var(--border-thick) solid var(--accent-primary);
+      display: none;
+    }
+    .result.visible {
+      display: block;
+    }
+    .result-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--space-md);
+      padding-bottom: var(--space-sm);
+      border-bottom: var(--border-thin) solid var(--border-color);
+    }
+    .result-title {
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+    .result-status {
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--accent-primary);
+      background: var(--bg-primary);
+      padding: var(--space-xs) var(--space-sm);
+      border: var(--border-thin) solid var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .result-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-md);
+    }
+    .result-field {
+      grid-column: span 2;
+    }
+    .result-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-xs);
+    }
+    .result-value {
+      padding: var(--space-sm);
+      background: var(--bg-primary);
+      border: var(--border-thin) solid var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      overflow-x: auto;
+    }
+    .short-url {
+      color: var(--text-primary);
+      text-decoration: none;
+      word-break: break-all;
+      transition: color var(--transition-instant);
+    }
+    .short-url:hover {
+      color: var(--accent-primary);
+      text-decoration: underline;
+    }
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-sm);
+    }
+    .stat-item {
+      text-align: center;
+      padding: var(--space-sm);
+      background: var(--bg-primary);
+      border: var(--border-thin) solid var(--border-color);
+    }
+    .stat-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.5625rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: var(--space-xs);
+    }
+    .stat-value {
+      font-family: var(--font-code);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    .result-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-sm);
+    }
+    .action-button {
+      padding: var(--space-sm) var(--space-md);
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      border: var(--border-thin) solid var(--border-color);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      text-align: left;
+    }
+    .action-button::before {
+      content: '[ ]';
+      margin-right: var(--space-sm);
+    }
+    .action-button:hover {
+      background: var(--bg-secondary);
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+    .action-button:active {
+      transform: translate(1px, 1px);
+    }
+    .qr-section {
+      grid-column: span 2;
+      text-align: center;
+      padding: var(--space-md);
+      background: var(--bg-primary);
+      border: var(--border-thin) solid var(--border-color);
+    }
+    .qr-container {
+      display: inline-block;
+      background: var(--text-primary);
+      padding: var(--space-sm);
+    }
+    .qr-image {
+      width: 150px;
+      height: 150px;
+      display: block;
+      filter: grayscale(100%);
+    }
+    .footer {
+      background: var(--bg-tertiary);
+      border-top: var(--border-thick) solid var(--border-color);
+      padding: var(--space-md);
+      font-family: var(--font-mono);
+      font-size: 0.625rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .footer-info {
+      display: flex;
+      gap: var(--space-lg);
+    }
+    .footer-info span {
+      display: inline-block;
+    }
+    .footer-info span::after {
+      content: '·';
+      margin-left: var(--space-sm);
+      margin-right: var(--space-sm);
+      color: var(--text-muted);
+    }
+    .footer-info span:last-child::after {
+      content: '';
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-secondary);
+    }
+    ::selection {
+      background: var(--accent-primary);
+      color: var(--bg-primary);
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: var(--space-sm);
+      }
+      .container {
+        max-width: 100%;
+      }
+      .result-content {
+        grid-template-columns: 1fr;
+      }
+      .result-stats {
+        grid-template-columns: 1fr;
+      }
+      .result-actions {
+        grid-template-columns: 1fr;
+      }
+      .qr-section {
+        grid-column: span 1;
+      }
+      .footer {
+        flex-direction: column;
+        gap: var(--space-sm);
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1 class="logo">shrt.name</h1>
+      <div class="header-meta">
+        <span class="version">v1.0.0</span>
+        <span class="status">SYSTEM: ONLINE</span>
+      </div>
+    </header>
+
+    <form id="shorten-form" class="form">
+      <div class="form-section">
+        <div class="form-title">INPUT PARAMETERS</div>
+
+        <div class="form-group">
+          <label class="form-label">Target URL [REQUIRED]</label>
+          <input type="url" id="url-input" class="form-input" placeholder="https://example.com" required autocomplete="off" />
+          <div class="input-meta">PROTOCOL: HTTP/HTTPS</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Custom Code [OPTIONAL]</label>
+          <input type="text" id="code-input" class="form-input" placeholder="auto-generated-if-empty" autocomplete="off" />
+          <div class="input-meta">MAX: 50 CHARS, ALPHANUMERIC + HYPHEN</div>
+        </div>
+      </div>
+
+      <div class="form-section">
+        <div class="form-title">EXECUTE</div>
+        <button type="submit" class="submit-button" id="submit-btn">
+          INITIATE SHORTEN OPERATION
+        </button>
+      </div>
+    </form>
+
+    <div id="result" class="result">
+      <div class="result-header">
+        <span class="result-title">OPERATION COMPLETE</span>
+        <span class="result-status">STATUS: SUCCESS</span>
+      </div>
+
+      <div class="result-content">
+        <div class="result-field">
+          <label class="result-label">GENERATED SHORT URL</label>
+          <div class="result-value">
+            <a href="#" id="short-url" target="_blank" class="short-url"></a>
+          </div>
+        </div>
+
+        <div class="result-stats">
+          <div class="stat-item">
+            <span class="stat-label">CLICKS</span>
+            <span class="stat-value" id="stat-clicks">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">TYPE</span>
+            <span class="stat-value" id="stat-type">AUTO</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">CODE</span>
+            <span class="stat-value" id="stat-code"></span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="action-button copy-btn" id="copy-btn">
+            COPY TO CLIPBOARD
+          </button>
+          <button class="action-button stats-btn" id="view-stats-btn">
+            VIEW STATISTICS
+          </button>
+        </div>
+
+        <div class="qr-section">
+          <div class="qr-container">
+            <img id="qr-code" src="" alt="QR_CODE" class="qr-image" loading="lazy">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="footer">
+      <div class="footer-info">
+        <span>shrt.name</span>
+        <span>2024</span>
+        <span>MIT_LICENSE</span>
+      </div>
+      <div>BUILD: 2024.01.11.01</div>
+    </footer>
+  </div>
+
+  <script>
+    const form = document.getElementById('shorten-form');
+    const urlInput = document.getElementById('url-input');
+    const codeInput = document.getElementById('code-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const result = document.getElementById('result');
+    const shortUrl = document.getElementById('short-url');
+    const statClicks = document.getElementById('stat-clicks');
+    const statType = document.getElementById('stat-type');
+    const statCode = document.getElementById('stat-code');
+    const copyBtn = document.getElementById('copy-btn');
+    const viewStatsBtn = document.getElementById('view-stats-btn');
+    const qrCode = document.getElementById('qr-code');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const url = urlInput.value.trim();
+      const code = codeInput.value.trim();
+
+      if (!url) {
+        alert('[ERROR] URL_REQUIRED');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '[PROCESSING] OPERATION IN PROGRESS...';
+
+      try {
+        const response = await fetch('/api/shorten', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, code: code || null })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          shortUrl.href = data.short_url;
+          shortUrl.textContent = data.short_url;
+          statClicks.textContent = '0';
+          statType.textContent = data.custom_code ? 'CUSTOM' : 'AUTO';
+          statCode.textContent = data.code;
+
+          const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=' + encodeURIComponent(data.short_url) + '&color=00FF41&bgcolor=0A0A0A';
+          qrCode.src = qrUrl;
+
+          result.classList.add('visible');
+        } else {
+          alert('[ERROR] ' + (data.error || 'OPERATION_FAILED'));
+        }
+      } catch (error) {
+        console.error('[ERROR]', error);
+        alert('[ERROR] NETWORK_FAILURE');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'INITIATE SHORTEN OPERATION';
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shortUrl.textContent);
+        alert('[SUCCESS] COPIED_TO_CLIPBOARD');
+      } catch (error) {
+        const textArea = document.createElement('textarea');
+        textArea.value = shortUrl.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('[SUCCESS] COPIED_TO_CLIPBOARD');
+      }
+    });
+
+    viewStatsBtn.addEventListener('click', async () => {
+      const code = statCode.textContent;
+      const response = await fetch('/api/stats/' + code);
+      const data = await response.json();
+
+      if (data.success) {
+        alert('[STATISTICS]\n\nCLICKS: ' + data.clicks + '\nCREATED: ' + new Date(data.created_at).toLocaleString());
+      } else {
+        alert('[ERROR] STATISTICS_RETRIEVAL_FAILED');
+      }
+    });
+
+    console.log('%c> SHRT.NAME SYSTEM INITIALIZED', 'color: #00FF41; font-weight: bold;');
+    console.log('%c> WAITING FOR USER INPUT...', 'color: #0A0A0A;');
+  </script>
+</body>
+</html>

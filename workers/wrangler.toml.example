@@ -1,0 +1,25 @@
+name = "shrt-name"
+main = "src/index.js"
+compatibility_date = "2024-01-01"
+
+[vars]
+ENVIRONMENT = "production"
+DOMAIN = "your-domain.com"
+
+# D1 Database
+# Create with: wrangler d1 create shrt-name
+[[d1_databases]]
+binding = "DB"
+database_name = "shrt-name"
+database_id = "YOUR_DATABASE_ID_HERE"
+
+# KV Namespace
+# Create with: wrangler kv:namespace create LINKS
+[[kv_namespaces]]
+binding = "LINKS"
+id = "YOUR_KV_NAMESPACE_ID_HERE"
+
+# Routes - uncomment and update after binding domain
+# routes = [
+#    { pattern = "https://your-domain.com/*", zone_name = "your-domain.com" }
+# ]

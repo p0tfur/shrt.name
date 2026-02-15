@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SHRT.NAME // ART DECO URL SHORTENER</title>
+  <meta name="description" content="Art Deco URL Shortener - 1920s elegance, geometric design, gold accents">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gold-primary: #d4af37;
+      --gold-light: #f4e4bc;
+      --gold-dark: #b8860b;
+      --black-onyx: #1a1a1a;
+      --charcoal: #2c2c2c;
+      --cream: #faf8f5;
+      --ivory: #fffff0;
+      --platinum: #e5e4e2;
+      --copper: #b87333;
+      --emerald: #006400;
+
+      --font-display: 'Cinzel', serif;
+      --font-heading: 'Playfair Display', serif;
+      --font-body: 'Montserrat', sans-serif;
+
+      --shadow-deco: 0 8px 32px rgba(0, 0, 0, 0.3);
+      --shadow-gold: 0 4px 16px rgba(212, 175, 55, 0.4);
+
+      --border-gold: 2px solid var(--gold-primary);
+      --border-gold-double: 4px double var(--gold-primary);
+      --border-black: 2px solid var(--black-onyx);
+
+      --radius-none: 0;
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      background: linear-gradient(135deg, var(--black-onyx) 0%, var(--charcoal) 100%);
+      color: var(--cream);
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+      letter-spacing: 0.03em;
+      position: relative;
+    }
+
+    /* Art Deco Pattern Background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 35px,
+          rgba(212, 175, 55, 0.03) 35px,
+          rgba(212, 175, 55, 0.03) 70px
+        );
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Art Deco Border Frame */
+    .frame {
+      background: linear-gradient(135deg, var(--black-onyx), var(--charcoal));
+      border: var(--border-gold);
+      padding: 40px;
+      position: relative;
+      box-shadow: var(--shadow-deco);
+    }
+
+    .frame::before,
+    .frame::after {
+      content: '';
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      border: 2px solid var(--gold-primary);
+    }
+
+    .frame::before {
+      top: 10px;
+      left: 10px;
+      border-right: none;
+      border-bottom: none;
+    }
+
+    .frame::after {
+      bottom: 10px;
+      right: 10px;
+      border-left: none;
+      border-top: none;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .header::before,
+    .header::after {
+      content: '◆';
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold-primary);
+      font-size: 1.2rem;
+    }
+
+    .header::before {
+      left: 20%;
+    }
+
+    .header::after {
+      right: 20%;
+    }
+
+    .logo {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 8vw, 4rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: linear-gradient(135deg, var(--gold-light), var(--gold-primary), var(--gold-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+      text-shadow: none;
+    }
+
+    .tagline {
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-light);
+      letter-spacing: 0.1em;
+      position: relative;
+      display: inline-block;
+    }
+
+    .tagline::before,
+    .tagline::after {
+      content: '—';
+      color: var(--gold-primary);
+      margin: 0 15px;
+    }
+
+    /* Main Content */
+    .main {
+      background: var(--black-onyx);
+      border: var(--border-gold);
+      padding: 40px;
+      margin-bottom: 30px;
+      position: relative;
+      box-shadow: inset 0 0 30px rgba(212, 175, 55, 0.1);
+    }
+
+    .main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-primary), var(--gold-dark));
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      text-align: center;
+      margin-bottom: 35px;
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 2px;
+      background: var(--gold-primary);
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 18px 20px;
+      border: var(--border-gold);
+      background: var(--charcoal);
+      color: var(--cream);
+      outline: none;
+      transition: var(--transition-normal);
+      letter-spacing: 0.05em;
+    }
+
+    .input::placeholder {
+      color: rgba(212, 175, 55, 0.5);
+      font-style: italic;
+    }
+
+    .input:focus {
+      border-color: var(--gold-light);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+      background: var(--black-onyx);
+    }
+
+    /* Custom Code */
+    .custom-group {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .custom-input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      font-weight: 400;
+      padding: 15px 18px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      background: var(--charcoal);
+      color: var(--cream);
+      outline: none;
+      transition: var(--transition-normal);
+      letter-spacing: 0.05em;
+    }
+
+    .custom-input:focus {
+      border-color: var(--gold-primary);
+      background: var(--black-onyx);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 20px;
+      margin-top: 35px;
+      background: linear-gradient(135deg, var(--gold-primary), var(--gold-dark));
+      color: var(--black-onyx);
+      border: none;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition-normal);
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: var(--transition-slow);
+    }
+
+    .submit-btn:hover {
+      box-shadow: var(--shadow-gold);
+      transform: translateY(-2px);
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      font-family: var(--font-heading);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--gold-light);
+      padding: 30px;
+      background: var(--charcoal);
+      border: var(--border-gold);
+      margin-top: 35px;
+      display: none;
+      position: relative;
+    }
+
+    .loading::before {
+      content: '✦';
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: var(--gold-primary);
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    /* Error */
+    .error {
+      background: linear-gradient(135deg, #4a1a1a, #2c0c0c);
+      border: 2px solid #8b0000;
+      padding: 25px;
+      margin-top: 35px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--cream);
+      text-align: center;
+      display: none;
+      position: relative;
+    }
+
+    .error::before {
+      content: '⚠';
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      color: #ff4444;
+    }
+
+    /* Result */
+    .result {
+      margin-top: 35px;
+      padding: 35px;
+      background: linear-gradient(135deg, var(--charcoal), var(--black-onyx));
+      border: var(--border-gold-double);
+      display: none;
+      position: relative;
+      box-shadow: var(--shadow-deco);
+    }
+
+    .result.show {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result::before {
+      content: '◆';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.5rem;
+      color: var(--gold-primary);
+      background: var(--black-onyx);
+      padding: 0 15px;
+    }
+
+    .result-title {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .short-url {
+      font-family: var(--font-body);
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: var(--gold-light);
+      background: var(--charcoal);
+      padding: 20px;
+      border: 1px solid var(--gold-primary);
+      margin-bottom: 20px;
+      word-break: break-all;
+      text-align: center;
+      letter-spacing: 0.05em;
+    }
+
+    .original-url {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: rgba(212, 175, 55, 0.7);
+      margin-bottom: 25px;
+      word-break: break-all;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      min-width: 200px;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 16px;
+      background: var(--charcoal);
+      color: var(--gold-primary);
+      border: 1px solid var(--gold-primary);
+      cursor: pointer;
+      transition: var(--transition-normal);
+    }
+
+    .action-btn:hover {
+      background: var(--gold-primary);
+      color: var(--black-onyx);
+      box-shadow: var(--shadow-gold);
+    }
+
+    /* QR Code */
+    .qr-section {
+      margin-top: 25px;
+      padding: 25px;
+      background: var(--charcoal);
+      border: var(--border-gold);
+      display: none;
+      text-align: center;
+      position: relative;
+    }
+
+    .qr-section.show {
+      display: block;
+    }
+
+    .qr-section::before {
+      content: '◆';
+      position: absolute;
+      top: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2rem;
+      color: var(--gold-primary);
+      background: var(--charcoal);
+      padding: 0 10px;
+    }
+
+    .qr-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-light);
+      margin-bottom: 20px;
+    }
+
+    .qr-code {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      display: block;
+      border: 2px solid var(--gold-primary);
+      padding: 10px;
+      background: var(--ivory);
+    }
+
+    .qr-code img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Stats */
+    .stats-section {
+      margin-top: 30px;
+      padding: 30px;
+      background: var(--black-onyx);
+      border: var(--border-gold);
+      display: none;
+      position: relative;
+    }
+
+    .stats-section.show {
+      display: block;
+    }
+
+    .stats-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      text-align: center;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--gold-light);
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: var(--cream);
+      letter-spacing: 0.05em;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 35px;
+      background: var(--black-onyx);
+      border: var(--border-gold);
+      position: relative;
+      box-shadow: var(--shadow-deco);
+    }
+
+    .footer::before {
+      content: '◆ ◆ ◆';
+      display: block;
+      color: var(--gold-primary);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      letter-spacing: 0.3em;
+    }
+
+    .footer-title {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--gold-primary);
+      margin-bottom: 15px;
+    }
+
+    .footer-text {
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .footer-link {
+      font-family: var(--font-display);
+      font-size: 0.85rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--gold-light);
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 1px solid rgba(212, 175, 55, 0.5);
+      transition: var(--transition-normal);
+    }
+
+    .footer-link:hover {
+      background: var(--gold-primary);
+      color: var(--black-onyx);
+      border-color: var(--gold-primary);
+    }
+
+    /* Decorative Elements */
+    .deco-line {
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+      margin: 30px 0;
+    }
+
+    .deco-diamond {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 20px 0;
+      color: var(--gold-primary);
+      font-size: 0.8rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .frame {
+        padding: 25px;
+      }
+
+      .main {
+        padding: 30px 20px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .action-btn {
+        width: 100%;
+      }
+
+      .header::before,
+      .header::after {
+        display: none;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--black-onyx);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--gold-primary);
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--gold-light);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="frame">
+      <!-- Header -->
+      <header class="header">
+        <h1 class="logo">SHRT.NAME</h1>
+        <p class="tagline">Art Deco URL Shortener</p>
+      </header>
+
+      <div class="deco-diamond">
+        <span>◆</span>
+        <span>◆</span>
+        <span>◆</span>
+      </div>
+
+      <!-- Main Content -->
+      <main class="main">
+        <h2 class="section-title">Create Short Link</h2>
+
+        <form id="shortenForm">
+          <div class="form-group">
+            <label class="label" for="url">Your URL</label>
+            <input
+              type="url"
+              id="url"
+              class="input"
+              placeholder="https://example.com/your-long-url"
+              required
+              autocomplete="off"
+            >
+          </div>
+
+          <div class="custom-group">
+            <label class="label" for="customCode">Custom Code [Optional]</label>
+            <input
+              type="text"
+              id="customCode"
+              class="custom-input"
+              placeholder="your-custom-code"
+              maxlength="50"
+              pattern="[a-zA-Z0-9-_]+"
+              autocomplete="off"
+            >
+          </div>
+
+          <button type="submit" class="submit-btn">
+            Shorten URL
+          </button>
+        </form>
+
+        <!-- Loading -->
+        <div id="loading" class="loading">
+          Processing
+        </div>
+
+        <!-- Error -->
+        <div id="error" class="error"></div>
+
+        <!-- Result -->
+        <div id="result" class="result">
+          <h3 class="result-title">Your Short Link</h3>
+          <div class="short-url" id="shortUrl"></div>
+          <p class="original-url" id="originalUrl"></p>
+
+          <div class="actions">
+            <button id="copyBtn" class="action-btn">Copy</button>
+            <button id="visitBtn" class="action-btn">Open</button>
+          </div>
+        </div>
+
+        <!-- QR Code -->
+        <div id="qrSection" class="qr-section">
+          <h4 class="qr-title">QR Code</h4>
+          <div class="qr-code" id="qrCode"></div>
+        </div>
+      </main>
+
+      <div class="deco-line"></div>
+
+      <!-- Stats -->
+      <div id="statsSection" class="stats-section">
+        <h3 class="stats-title">Link Statistics</h3>
+        <div class="stat-item">
+          <span class="stat-label">Total Clicks</span>
+          <span class="stat-value" id="clickCount">0</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Created</span>
+          <span class="stat-value" id="createdAt">-</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-label">Code Type</span>
+          <span class="stat-value" id="codeType">-</span>
+        </div>
+      </div>
+
+      <div class="deco-diamond">
+        <span>◆</span>
+        <span>◆</span>
+        <span>◆</span>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <h3 class="footer-title">SHRT.NAME</h3>
+        <p class="footer-text">Cloudflare Workers • D1 • KV</p>
+        <p class="footer-text">$0/month — Forever Free</p>
+        <div class="footer-links">
+          <a href="/" class="footer-link">Home</a>
+          <a href="/?variant=artdeco" class="footer-link">Art Deco</a>
+          <a href="/?variant=luxury" class="footer-link">Luxury</a>
+          <a href="/?variant=playful" class="footer-link">Playful</a>
+          <a href="/?variant=industrial" class="footer-link">Industrial</a>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    // DOM Elements
+    const form = document.getElementById('shortenForm');
+    const urlInput = document.getElementById('url');
+    const customCodeInput = document.getElementById('customCode');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const result = document.getElementById('result');
+    const shortUrl = document.getElementById('shortUrl');
+    const originalUrl = document.getElementById('originalUrl');
+    const copyBtn = document.getElementById('copyBtn');
+    const visitBtn = document.getElementById('visitBtn');
+    const qrSection = document.getElementById('qrSection');
+    const qrCode = document.getElementById('qrCode');
+    const statsSection = document.getElementById('statsSection');
+    const clickCount = document.getElementById('clickCount');
+    const createdAt = document.getElementById('createdAt');
+    const codeType = document.getElementById('codeType');
+
+    // API Base
+    const API_BASE = window.location.origin;
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const url = urlInput.value.trim();
+      const customCode = customCodeInput.value.trim();
+
+      if (!url) {
+        showError('Please enter a URL');
+        return;
+      }
+
+      if (!isValidUrl(url)) {
+        showError('Please enter a valid URL');
+        return;
+      }
+
+      hideError();
+      hideResult();
+      showLoading();
+
+      try {
+        const response = await fetch(`${API_BASE}/api/shorten`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            url: url,
+            code: customCode || undefined
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showResult(data);
+        } else {
+          showError(data.error || 'Failed to shorten URL');
+        }
+      } catch (err) {
+        showError('Network error. Please try again.');
+        console.error(err);
+      } finally {
+        hideLoading();
+      }
+    });
+
+    // Copy button
+    copyBtn.addEventListener('click', async () => {
+      const url = shortUrl.textContent;
+      try {
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = 'Copy';
+        }, 2000);
+      } catch (err) {
+        showError('Failed to copy to clipboard');
+      }
+    });
+
+    // Visit button
+    visitBtn.addEventListener('click', () => {
+      window.open(shortUrl.textContent, '_blank');
+    });
+
+    // Validate URL
+    function isValidUrl(string) {
+      try {
+        const url = new URL(string);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+      } catch (_) {
+        return false;
+      }
+    }
+
+    // Show/Hide helpers
+    function showLoading() {
+      loading.style.display = 'block';
+    }
+
+    function hideLoading() {
+      loading.style.display = 'none';
+    }
+
+    function showError(message) {
+      error.textContent = message;
+      error.style.display = 'block';
+    }
+
+    function hideError() {
+      error.style.display = 'none';
+      error.textContent = '';
+    }
+
+    function showResult(data) {
+      shortUrl.textContent = data.short_url;
+      originalUrl.textContent = data.original_url;
+      result.classList.add('show');
+      qrSection.classList.add('show');
+
+      // Generate QR code
+      generateQRCode(data.short_url);
+
+      // Fetch stats
+      fetchStats(data.code);
+    }
+
+    function hideResult() {
+      result.classList.remove('show');
+      qrSection.classList.remove('show');
+      statsSection.classList.remove('show');
+    }
+
+    // Generate QR code
+    function generateQRCode(url) {
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&bgcolor=1a1a1a&color=d4af37`;
+      qrCode.innerHTML = `<img src="${qrUrl}" alt="QR Code">`;
+    }
+
+    // Fetch stats
+    async function fetchStats(code) {
+      try {
+        const response = await fetch(`${API_BASE}/api/stats/${code}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          statsSection.classList.add('show');
+          clickCount.textContent = data.clicks;
+          createdAt.textContent = new Date(data.created_at).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          });
+          codeType.textContent = data.custom_code ? 'Custom' : 'Auto-generated';
+        }
+      } catch (err) {
+        console.error('Failed to fetch stats:', err);
+      }
+    }
+
+    // Prevent Enter in custom code
+    customCodeInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+
+    // Focus URL input on load
+    urlInput.focus();
+  </script>
+</body>
+</html>

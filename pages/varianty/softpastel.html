@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>shrt.name // soft pastel url shortener</title>
+  <meta name="description" content="Soft Pastel URL Shortener - gentle colors, warm feel, dreamy design">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Soft Pastel Colors */
+      --pink-pale: #ffd6e0;
+      --pink-soft: #ffb6d9;
+      --pink-medium: #ff99c8;
+      --purple-pale: #e8d5f2;
+      --purple-soft: #d4b5e0;
+      --purple-medium: #c490d0;
+      --blue-pale: #d4e5f7;
+      --blue-soft: #b8d4f0;
+      --blue-medium: #9cc4e8;
+      --mint-pale: #d5f5e3;
+      --mint-soft: #b3e8d8;
+      --mint-medium: #91dbcd;
+      --peach-pale: #ffe5d9;
+      --peach-soft: #ffd4c4;
+      --peach-medium: #ffc3b0;
+      --cream: #fffbf7;
+      --ivory: #fffdf9;
+      --lavender: #e6e6fa;
+
+      /* Text Colors */
+      --text-dark: #5a4a5c;
+      --text-medium: #7a6b7c;
+      --text-light: #9a8c9c;
+
+      --font-heading: 'Quicksand', sans-serif;
+      --font-body: 'Nunito', sans-serif;
+
+      --shadow-soft: 0 8px 24px rgba(90, 74, 92, 0.08);
+      --shadow-gentle: 0 4px 16px rgba(90, 74, 92, 0.06);
+
+      --radius-lg: 20px;
+      --radius-md: 16px;
+      --radius-sm: 12px;
+
+      --transition-slow: 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-fast: 0.2s ease-out;
+    }
+
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: var(--font-body);
+      font-weight: 400;
+      background: linear-gradient(135deg, var(--cream) 0%, var(--ivory) 50%, var(--lavender) 100%);
+      color: var(--text-dark);
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+      letter-spacing: 0.02em;
+    }
+
+    /* Soft gradient dots pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: radial-gradient(var(--purple-pale) 1px, transparent 1px);
+      background-size: 30px 30px;
+      opacity: 0.4;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+
+    .logo-emoji {
+      font-size: 3rem;
+      margin-bottom: 20px;
+      display: block;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .header h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.5rem, 7vw, 3.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--pink-medium), var(--purple-medium));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: var(--text-medium);
+      font-weight: 500;
+    }
+
+    /* Main Card */
+    .main {
+      background: var(--ivory);
+      border-radius: var(--radius-lg);
+      padding: 45px;
+      margin-bottom: 30px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .main::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--pink-pale), var(--purple-pale), var(--blue-pale), var(--mint-pale), var(--peach-pale));
+    }
+
+    /* Section Title */
+    .section-title {
+      font-family: var(--font-heading);
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 35px;
+      text-align: center;
+    }
+
+    /* Form */
+    .form-group {
+      margin-bottom: 30px;
+    }
+
+    .label {
+      display: block;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      margin-bottom: 12px;
+    }
+
+    .input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 1.05rem;
+      font-weight: 400;
+      padding: 18px 22px;
+      border: 2px solid var(--purple-soft);
+      border-radius: var(--radius-md);
+      background: var(--cream);
+      color: var(--text-dark);
+      outline: none;
+      transition: var(--transition-normal);
+    }
+
+    .input::placeholder {
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    .input:focus {
+      border-color: var(--purple-medium);
+      background: var(--ivory);
+      box-shadow: 0 0 0 4px rgba(196, 144, 208, 0.15);
+    }
+
+    /* Custom Code */
+    .custom-group {
+      margin-top: 25px;
+      padding-top: 25px;
+      border-top: 2px dashed var(--blue-soft);
+    }
+
+    .custom-label {
+      display: flex;
+      align-items: center;
+      font-family: var(--font-heading);
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-medium);
+      margin-bottom: 12px;
+    }
+
+    .custom-label span {
+      margin-right: 8px;
+      font-size: 1.2rem;
+    }
+
+    .custom-input {
+      width: 100%;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      font-weight: 400;
+      padding: 16px 20px;
+      border: 2px solid var(--blue-soft);
+      border-radius: var(--radius-sm);
+      background: var(--cream);
+      color: var(--text-dark);
+      outline: none;
+      transition: var(--transition-normal);
+    }
+
+    .custom-input:focus {
+      border-color: var(--blue-medium);
+      background: var(--ivory);
+      box-shadow: 0 0 0 4px rgba(156, 196, 232, 0.15);
+    }
+
+    .custom-input::placeholder {
+      color: var(--text-light);
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      font-family: var(--font-heading);
+      font-size: 1.15rem;
+      font-weight: 600;
+      padding: 20px;
+      margin-top: 35px;
+      border: none;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--pink-soft), var(--purple-soft));
+      color: var(--text-dark);
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+      transition: var(--transition-normal);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      transition: var(--transition-slow);
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(90, 74, 92, 0.15);
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-gentle);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Loading */
+    .loading {
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: var(--text-medium);
+      padding: 35px;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      margin-top: 35px;
+      display: none;
+      border: 2px dashed var(--purple-soft);
+    }
+
+    .loading::before {
+      content: '✨';
+      display: block;
+      font-size: 2rem;
+      margin-bottom: 15px;
+      animation: sparkle 1.5s infinite;
+    }
+
+    @keyframes sparkle {
+      0%, 100% { opacity: 0.5; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Error */
+    .error {
+      background: linear-gradient(135deg, var(--peach-pale), var(--pink-pale));
+      border-left: 4px solid var(--pink-medium);
+      padding: 25px;
+      border-radius: var(--radius-sm);
+      margin-top: 35px;
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--text-dark);
+      text-align: center;
+      display: none;
+    }
+
+    .error::before {
+      content: '💕';
+      display: block;
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+    }
+
+    /* Result */
+    .result {
+      margin-top: 35px;
+      padding: 35px;
+      background: linear-gradient(135deg, var(--mint-pale), var(--blue-pale));
+      border-radius: var(--radius-md);
+      display: none;
+      box-shadow: var(--shadow-gentle);
+      border: 2px solid var(--mint-soft);
+    }
+
+    .result.show {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 25px;
+    }
+
+    .result-icon {
+      font-size: 2rem;
+      margin-right: 15px;
+    }
+
+    .result-title {
+      font-family: var(--font-heading);
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .short-url {
+      font-family: var(--font-body);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      background: var(--ivory);
+      padding: 20px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 20px;
+      word-break: break-all;
+      text-align: center;
+      border: 2px solid var(--mint-soft);
+    }
+
+    .original-url {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-medium);
+      margin-bottom: 25px;
+      word-break: break-all;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .actions {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .action-btn {
+      flex: 1;
+      min-width: 180px;
+      font-family: var(--font-heading);
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 16px 20px;
+      border: 2px solid var(--purple-soft);
+      border-radius: var(--radius-sm);
+      background: var(--ivory);
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition-fast);
+    }
+
+    .action-btn:first-child {
+      background: linear-gradient(135deg, var(--purple-pale), var(--purple-soft));
+      border-color: var(--purple-medium);
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gentle);
+    }
+
+    /* QR Code */
+    .qr-section {
+      margin-top: 25px;
+      padding: 25px;
+      background: var(--ivory);
+      border-radius: var(--radius-sm);
+      display: none;
+      text-align: center;
+      border: 2px dashed var(--pink-soft);
+    }
+
+    .qr-section.show {
+      display: block;
+    }
+
+    .qr-title {
+      font-family: var(--font-heading);
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      margin-bottom: 18px;
+    }
+
+    .qr-code {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      display: block;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      padding: 10px;
+      background: var(--cream);
+    }
+
+    .qr-code img {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Stats */
+    .stats-section {
+      margin-top: 30px;
+      padding: 30px;
+      background: var(--cream);
+      border-radius: var(--radius-md);
+      display: none;
+      border: 2px solid var(--peach-soft);
+    }
+
+    .stats-section.show {
+      display: block;
+    }
+
+    .stats-title {
+      font-family: var(--font-heading);
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      margin-bottom: 25px;
+      text-align: center;
+    }
+
+    .stat-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--pink-pale);
+      font-family: var(--font-body);
+      font-size: 1rem;
+    }
+
+    .stat-item:last-child {
+      border-bottom: none;
+    }
+
+    .stat-label {
+      font-weight: 600;
+      color: var(--text-medium);
+    }
+
+    .stat-value {
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 35px;
+      background: var(--ivory);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-gentle);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .footer::before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, var(--blue-pale), var(--mint-pale), var(--peach-pale), var(--pink-pale), var(--purple-pale));
+    }
+
+    .footer-title {
+      font-family: var(--font-heading);
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--blue-medium), var(--mint-medium));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 15px;
+    }
+
+    .footer-text {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--text-medium);
+      margin-bottom: 10px;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 25px;
+    }
+
+    .footer-link {
+      font-family: var(--font-heading);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-medium);
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: var(--radius-sm);
+      transition: var(--transition-fast);
+      background: var(--cream);
+    }
+
+    .footer-link:hover {
+      background: var(--purple-pale);
+      color: var(--text-dark);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-gentle);
+    }
+
+    /* Decorative elements */
+    .deco-circle {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.1;
+    }
+
+    .deco-circle-1 {
+      width: 150px;
+      height: 150px;
+      background: var(--pink-soft);
+      top: -50px;
+      right: -50px;
+    }
+
+    .deco-circle-2 {
+      width: 100px;
+      height: 100px;
+      background: var(--purple-soft);
+      bottom: -30px;
+      left: -30px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      body {
+        padding: 30px 15px;
+      }
+
+      .main {
+        padding: 35px 25px;
+      }
+
+      .actions {
+        flex-direction: column;
+      }
+
+      .action-btn {
+        width: 100%;
+      }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--cream);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--purple-soft);
+      border-radius: 6px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--purple-medium);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <span class="logo-emoji">🌸</span>
+      <h1>shrt.name</h1>
+      <p>Soft Pastel URL Shortener</p>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <div class="deco-circle deco-circle-1"></div>
+      <div class="deco-circle deco-circle-2"></div>
+
+      <h2 class="section-title">Create a Short Link</h2>
+
+      <form id="shortenForm">
+        <div class="form-group">
+          <label class="label" for="url">Your Long URL</label>
+          <input
+            type="url"
+            id="url"
+            class="input"
+            placeholder="https://example.com/very-long-url"
+            required
+            autocomplete="off"
+          >
+        </div>
+
+        <div class="custom-group">
+          <label class="custom-label" for="customCode">
+            <span>✨</span>
+            Custom Code (Optional)
+          </label>
+          <input
+            type="text"
+            id="customCode"
+            class="custom-input"
+            placeholder="your-custom-code"
+            maxlength="50"
+            pattern="[a-zA-Z0-9-_]+"
+            autocomplete="off"
+          >
+        </div>
+
+        <button type="submit" class="submit-btn">
+          ✨ Shorten URL
+        </button>
+      </form>
+
+      <!-- Loading -->
+      <div id="loading" class="loading">
+        Creating your link...
+      </div>
+
+      <!-- Error -->
+      <div id="error" class="error"></div>
+
+      <!-- Result -->
+      <div id="result" class="result">
+        <div class="result-header">
+          <span class="result-icon">💖</span>
+          <h3 class="result-title">Your Short Link</h3>
+        </div>
+        <div class="short-url" id="shortUrl"></div>
+        <p class="original-url" id="originalUrl"></p>
+
+        <div class="actions">
+          <button id="copyBtn" class="action-btn">📋 Copy</button>
+          <button id="visitBtn" class="action-btn">🔗 Open</button>
+        </div>
+      </div>
+
+      <!-- QR Code -->
+      <div id="qrSection" class="qr-section">
+        <h4 class="qr-title">📱 QR Code</h4>
+        <div class="qr-code" id="qrCode"></div>
+      </div>
+    </main>
+
+    <!-- Stats -->
+    <div id="statsSection" class="stats-section">
+      <h3 class="stats-title">📊 Link Statistics</h3>
+      <div class="stat-item">
+        <span class="stat-label">Total Clicks</span>
+        <span class="stat-value" id="clickCount">0</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Created</span>
+        <span class="stat-value" id="createdAt">-</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-label">Code Type</span>
+        <span class="stat-value" id="codeType">-</span>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <h3 class="footer-title">shrt.name</h3>
+      <p class="footer-text">Powered by Cloudflare Workers • D1 • KV</p>
+      <p class="footer-text">$0/month • Forever Free</p>
+      <div class="footer-links">
+        <a href="/" class="footer-link">Home</a>
+        <a href="/?variant=softpastel" class="footer-link">Soft Pastel</a>
+        <a href="/?variant=luxury" class="footer-link">Luxury</a>
+        <a href="/?variant=playful" class="footer-link">Playful</a>
+        <a href="/?variant=industrial" class="footer-link">Industrial</a>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // DOM Elements
+    const form = document.getElementById('shortenForm');
+    const urlInput = document.getElementById('url');
+    const customCodeInput = document.getElementById('customCode');
+    const loading = document.getElementById('loading');
+    const error = document.getElementById('error');
+    const result = document.getElementById('result');
+    const shortUrl = document.getElementById('shortUrl');
+    const originalUrl = document.getElementById('originalUrl');
+    const copyBtn = document.getElementById('copyBtn');
+    const visitBtn = document.getElementById('visitBtn');
+    const qrSection = document.getElementById('qrSection');
+    const qrCode = document.getElementById('qrCode');
+    const statsSection = document.getElementById('statsSection');
+    const clickCount = document.getElementById('clickCount');
+    const createdAt = document.getElementById('createdAt');
+    const codeType = document.getElementById('codeType');
+
+    // API Base
+    const API_BASE = window.location.origin;
+
+    // Form submission
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const url = urlInput.value.trim();
+      const customCode = customCodeInput.value.trim();
+
+      if (!url) {
+        showError('Please enter a URL');
+        return;
+      }
+
+      if (!isValidUrl(url)) {
+        showError('Please enter a valid URL');
+        return;
+      }
+
+      hideError();
+      hideResult();
+      showLoading();
+
+      try {
+        const response = await fetch(`${API_BASE}/api/shorten`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            url: url,
+            code: customCode || undefined
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          showResult(data);
+        } else {
+          showError(data.error || 'Failed to shorten URL');
+        }
+      } catch (err) {
+        showError('Network error. Please try again.');
+        console.error(err);
+      } finally {
+        hideLoading();
+      }
+    });
+
+    // Copy button
+    copyBtn.addEventListener('click', async () => {
+      const url = shortUrl.textContent;
+      try {
+        await navigator.clipboard.writeText(url);
+        copyBtn.textContent = '✓ Copied!';
+        setTimeout(() => {
+          copyBtn.textContent = '📋 Copy';
+        }, 2000);
+      } catch (err) {
+        showError('Failed to copy to clipboard');
+      }
+    });
+
+    // Visit button
+    visitBtn.addEventListener('click', () => {
+      window.open(shortUrl.textContent, '_blank');
+    });
+
+    // Validate URL
+    function isValidUrl(string) {
+      try {
+        const url = new URL(string);
+        return url.protocol === 'http:' || url.protocol === 'https:';
+      } catch (_) {
+        return false;
+      }
+    }
+
+    // Show/Hide helpers
+    function showLoading() {
+      loading.style.display = 'block';
+    }
+
+    function hideLoading() {
+      loading.style.display = 'none';
+    }
+
+    function showError(message) {
+      error.textContent = message;
+      error.style.display = 'block';
+    }
+
+    function hideError() {
+      error.style.display = 'none';
+      error.textContent = '';
+    }
+
+    function showResult(data) {
+      shortUrl.textContent = data.short_url;
+      originalUrl.textContent = data.original_url;
+      result.classList.add('show');
+      qrSection.classList.add('show');
+
+      // Generate QR code
+      generateQRCode(data.short_url);
+
+      // Fetch stats
+      fetchStats(data.code);
+    }
+
+    function hideResult() {
+      result.classList.remove('show');
+      qrSection.classList.remove('show');
+      statsSection.classList.remove('show');
+    }
+
+    // Generate QR code
+    function generateQRCode(url) {
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(url)}&bgcolor=fffbf7&color=5a4a5c`;
+      qrCode.innerHTML = `<img src="${qrUrl}" alt="QR Code">`;
+    }
+
+    // Fetch stats
+    async function fetchStats(code) {
+      try {
+        const response = await fetch(`${API_BASE}/api/stats/${code}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          statsSection.classList.add('show');
+          clickCount.textContent = data.clicks;
+          createdAt.textContent = new Date(data.created_at).toLocaleDateString();
+          codeType.textContent = data.custom_code ? 'Custom' : 'Auto-generated';
+        }
+      } catch (err) {
+        console.error('Failed to fetch stats:', err);
+      }
+    }
+
+    // Prevent Enter in custom code
+    customCodeInput.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    });
+
+    // Focus URL input on load
+    urlInput.focus();
+
+    // Add floating emoji animation
+    document.addEventListener('DOMContentLoaded', () => {
+      const emojis = ['🌸', '✨', '💖', '🌺', '💕', '🌷'];
+      setInterval(() => {
+        if (Math.random() < 0.2) {
+          const emoji = document.createElement('div');
+          emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+          emoji.style.position = 'fixed';
+          emoji.style.left = Math.random() * 100 + 'vw';
+          emoji.style.top = '-30px';
+          emoji.style.fontSize = '1.5rem';
+          emoji.style.opacity = '0.3';
+          emoji.style.pointerEvents = 'none';
+          emoji.style.zIndex = '0';
+          emoji.style.transition = 'transform 4s linear, opacity 4s linear';
+          document.body.appendChild(emoji);
+
+          setTimeout(() => {
+            emoji.style.transform = 'translateY(' + (window.innerHeight + 100) + 'px)';
+            emoji.style.opacity = '0';
+          }, 100);
+
+          setTimeout(() => {
+            emoji.remove();
+          }, 4100);
+        }
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
