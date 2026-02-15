@@ -526,5 +526,68 @@
       }
     });
   </script>
+
+  <div class="style-selector">
+    <span class="selector-label">STYLE:</span>
+    <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
+    <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
+    <a href="luxury.html" class="style-link">💎 LUXURY</a>
+    <a href="playful.html" class="style-link">🎈 PLAY</a>
+    <a href="industrial.html" class="style-link">🏭 INDUST</a>
+    <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
+    <a href="artdeco.html" class="style-link">✨ DECO</a>
+    <a href="editorial.html" class="style-link">📰 EDIT</a>
+  </div>
+  
+  <style>
+    .style-selector {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00f3ff;
+      padding: 12px 20px;
+      z-index: 10000;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: monospace;
+      font-size: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .selector-label {
+      color: #666;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+    }
+    .style-link {
+      color: #b8b8d4;
+      text-decoration: none;
+      padding: 4px 8px;
+      border: 1px solid transparent;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .style-link:hover {
+      color: #00f3ff;
+      border-color: #00f3ff;
+    }
+    .style-link.active {
+      background: #00f3ff;
+      color: #0a0a0f;
+      font-weight: 700;
+    }
+    @media (max-width: 768px) {
+      .style-selector {
+        bottom: 10px;
+        padding: 8px 12px;
+        gap: 8px;
+        font-size: 0.625rem;
+      }
+    }
+  </style>
+
 </body>
 </html>

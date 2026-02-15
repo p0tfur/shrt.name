@@ -524,12 +524,7 @@
     (function() {
       const urlParams = new URLSearchParams(window.location.search);
       const currentVariant = urlParams.get('variant');
-      if (!currentVariant) {
-        const savedVariant = localStorage.getItem('shrtname_variant');
-        if (savedVariant) {
-          window.location.href = '/?variant=' + savedVariant;
-        }
-      } else {
+      if (currentVariant) {
         localStorage.setItem('shrtname_variant', currentVariant);
       }
     })();
