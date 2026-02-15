@@ -20,16 +20,25 @@ A retro-futuristic, fast, and free URL shortener built entirely on Cloudflare Wo
 
 ## 🎨 AESTHETIC VARIANTS
 
-shrt.name supports **4 unique aesthetic variants** - choose the one that fits your brand!
+shrt.name supports **11 unique aesthetic variants** - choose the one that fits your brand!
 
 ### Available Variants
 
 | Variant | URL | Description | Best For |
 |---------|-----|-------------|----------|
-| **Synthwave** | `/` or `?variant=synthwave` | Retro-futuristic, neon glow, CRT effects | Tech brands, developers |
+| **Synthwave** | `/` | Retro-futuristic, neon glow, CRT effects | Tech brands, developers |
 | **Luxury** | `?variant=luxury` | Premium, elegant, gold accents | Enterprise, luxury services |
 | **Playful** | `?variant=playful` | Colorful, bouncy, fun & friendly | Social apps, casual use |
 | **Industrial** | `?variant=industrial` | Brutalist, terminal-like, functional | Dev tools, CLI apps |
+| **Brutalist** | `?variant=brutalist` | Raw, geometric, anti-design | Artists, bold brands |
+| **Art Deco** | `?variant=artdeco` | 1920s elegance, geometric patterns | Luxury, vintage |
+| **Editorial** | `?variant=editorial` | Magazine-style, typography focused | Publishers, blogs |
+| **Maximalist Chaos** | `?variant=maximalist-chaos` | Chaotic, colorful, overwhelming | Creative, experimental |
+| **Organic** | `?variant=organic` | Natural, flowing, soft shapes | Wellness, eco brands |
+| **Soft Pastel** | `?variant=softpastel` | Gentle colors, calming | Lifestyle, wellness |
+| **Retro-futurystyczny** | `?variant=retro-futurystyczny` | Polish retro sci-fi | Nostalgia, sci-fi |
+
+**Note:** First 5 variants are embedded in the worker. Variants 6-11 are served from `/pages/varianty/` folder.
 
 ### How to Access Variants
 
@@ -47,17 +56,20 @@ https://shrt.name/?variant=industrial
 
 **Local Development**:
 ```
-# Synthwave (default)
-http://localhost:8787/
-
-# Luxury
+# Embedded variants (in worker)
+http://localhost:8787/                          # Synthwave (default)
 http://localhost:8787/?variant=luxury
-
-# Playful
 http://localhost:8787/?variant=playful
-
-# Industrial
 http://localhost:8787/?variant=industrial
+http://localhost:8787/?variant=brutalist
+
+# Additional variants (in pages/varianty/)
+http://localhost:8787/varianty/artdeco.html
+http://localhost:8787/varianty/editorial.html
+http://localhost:8787/varianty/maximalist-chaos.html
+http://localhost:8787/varianty/organic.html
+http://localhost:8787/varianty/softpastel.html
+http://localhost:8787/varianty/retro-futurystyczny.html
 ```
 
 ---
@@ -138,24 +150,32 @@ routes = [
 10. **Test it!**
 Visit your domain and test all variants:
 ```
-https://shrt.name/                    # Synthwave (default)
-https://shrt.name/?variant=luxury   # Luxury
-https://shrt.name/?variant=playful  # Playful
-https://shrt.name/?variant=industrial # Industrial
+# Main variants
+https://shrt.name/                          # Synthwave (default)
+https://shrt.name/?variant=luxury
+https://shrt.name/?variant=playful
+https://shrt.name/?variant=industrial
+https://shrt.name/?variant=brutalist
+
+# Additional variants
+https://shrt.name/varianty/artdeco.html
+https://shrt.name/varianty/editorial.html
+https://shrt.name/varianty/organic.html
+https://shrt.name/varianty/softpastel.html
 ```
 
 ---
 
-## 🎯 Variant Comparison
+## 🎯 Variant Comparison (Top 5)
 
-| Feature | Synthwave | Luxury | Playful | Industrial |
-|---------|-----------|---------|----------|-------------|
-| **Colors** | Neon dark | Gold/cream | Pastel bright | Grayscale |
-| **Typography** | Orbitron/Mono | Cormorant/Montserrat | Fredoka/Nunito | JetBrains/Code Pro |
-| **Animations** | Glitch, particles | Smooth, elegant | Bouncy, confetti | Minimal, instant |
-| **Character** | Retro-futuristic | Premium | Fun/Playful | Brutalist |
-| **Best For** | Tech brands | Enterprise | Social apps | Dev tools |
-| **Lines CSS** | ~800 | ~600 | ~700 | ~500 |
+| Feature | Synthwave | Luxury | Playful | Industrial | Brutalist |
+|---------|-----------|---------|----------|-------------|-----------|
+| **Colors** | Neon dark | Gold/cream | Pastel bright | Grayscale | B&W + red |
+| **Typography** | Orbitron/Mono | Cormorant/Montserrat | Fredoka/Nunito | JetBrains/Code Pro | Impact/Mono |
+| **Animations** | Glitch, particles | Smooth, elegant | Bouncy, confetti | Minimal, instant | Hard cuts |
+| **Character** | Retro-futuristic | Premium | Fun/Playful | Brutalist | Raw/Anti-design |
+| **Best For** | Tech brands | Enterprise | Social apps | Dev tools | Artists |
+| **Lines CSS** | ~800 | ~600 | ~700 | ~500 | ~600 |
 
 ## 📡 API Endpoints
 
