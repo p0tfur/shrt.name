@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,9 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════════════════════════════════
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
        SHRT.NAME // SYNTHWAVE AESTHETIC
-       ═══════════════════════════════════════════════════════════════════ */
+       â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
     :root {
       --neon-cyan: #00f3ff;
       --neon-magenta: #ff00ff;
@@ -348,17 +348,31 @@
 </head>
 <body>
   <script>
-    // Check for saved variant preference
+    // Check for saved variant preference and navigate to local variant pages.
     (function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const currentVariant = urlParams.get('variant');
-      if (!currentVariant) {
-        const savedVariant = localStorage.getItem('shrtname_variant');
-        if (savedVariant && savedVariant !== 'synthwave') {
-          window.location.href = '/?variant=' + savedVariant;
-        }
-      } else {
-        localStorage.setItem('shrtname_variant', currentVariant);
+      const variantFiles = {
+        synthwave: 'synthwave.html',
+        cyberglitch: 'cyberglitch.html',
+        luxury: 'luxury.html',
+        playful: 'playful.html',
+        industrial: 'industrial.html',
+        brutalist: 'brutalist.html',
+        artdeco: 'artdeco.html',
+        editorial: 'editorial.html',
+        'maximalist-chaos': 'maximalist-chaos.html',
+        organic: 'organic.html',
+        softpastel: 'softpastel.html',
+        'retro-futurystyczny': 'retro-futurystyczny.html'
+      };
+
+      const savedVariant = localStorage.getItem('shrtname_variant');
+      if (!savedVariant || savedVariant === 'synthwave') {
+        return;
+      }
+
+      const targetFile = variantFiles[savedVariant];
+      if (targetFile && !window.location.pathname.endsWith(targetFile)) {
+        window.location.href = targetFile;
       }
     })();
   </script>
@@ -384,7 +398,7 @@
 
     <div id="result">
       <div class="result-header">
-        <span class="result-status">✓</span>
+        <span class="result-status">âœ“</span>
         <h2 class="result-title">COMPRESSION_COMPLETE</h2>
       </div>
 
@@ -529,7 +543,7 @@
 
   <div class="style-selector">
     <span class="selector-label">STYLE:</span>
-    <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
+    <a href="synthwave.html" class="style-link active">🌆 SYNTH</a>
     <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
     <a href="luxury.html" class="style-link">💎 LUXURY</a>
     <a href="playful.html" class="style-link">🎈 PLAY</a>
@@ -537,6 +551,10 @@
     <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
     <a href="artdeco.html" class="style-link">✨ DECO</a>
     <a href="editorial.html" class="style-link">📰 EDIT</a>
+    <a href="maximalist-chaos.html" class="style-link">🔥 CHAOS</a>
+    <a href="organic.html" class="style-link">🌿 ORGANIC</a>
+    <a href="softpastel.html" class="style-link">🌸 PASTEL</a>
+    <a href="retro-futurystyczny.html" class="style-link">🚀 RETRO</a>
   </div>
   
   <style>

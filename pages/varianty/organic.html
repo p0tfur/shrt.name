@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -302,7 +302,7 @@
     }
 
     .loading::before {
-      content: '🌱';
+      content: 'ðŸŒ±';
       display: block;
       font-size: 2rem;
       margin-bottom: 15px;
@@ -330,7 +330,7 @@
     }
 
     .error::before {
-      content: '🌿';
+      content: 'ðŸŒ¿';
       display: block;
       font-size: 1.5rem;
       margin-bottom: 10px;
@@ -640,8 +640,8 @@
 
     <!-- Main Content -->
     <main class="main">
-      <div class="deco-leaf deco-leaf-1">🌿</div>
-      <div class="deco-leaf deco-leaf-2">🍃</div>
+      <div class="deco-leaf deco-leaf-1">ðŸŒ¿</div>
+      <div class="deco-leaf deco-leaf-2">ðŸƒ</div>
 
       <h2 class="section-title">Create a Short Link</h2>
 
@@ -677,7 +677,7 @@
         </div>
 
         <button type="submit" class="submit-btn">
-          🌱 Shorten URL
+          ðŸŒ± Shorten URL
         </button>
       </form>
 
@@ -692,28 +692,28 @@
       <!-- Result -->
       <div id="result" class="result">
         <div class="result-header">
-          <span class="result-icon">🌸</span>
+          <span class="result-icon">ðŸŒ¸</span>
           <h3 class="result-title">Your Short Link</h3>
         </div>
         <div class="short-url" id="shortUrl"></div>
         <div class="original-url" id="originalUrl"></div>
 
         <div class="actions">
-          <button id="copyBtn" class="action-btn">📋 Copy Link</button>
-          <button id="visitBtn" class="action-btn">🔗 Open Link</button>
+          <button id="copyBtn" class="action-btn">ðŸ“‹ Copy Link</button>
+          <button id="visitBtn" class="action-btn">ðŸ”— Open Link</button>
         </div>
       </div>
 
       <!-- QR Code -->
       <div id="qrSection" class="qr-section">
-        <h4 class="qr-title">📱 QR Code</h4>
+        <h4 class="qr-title">ðŸ“± QR Code</h4>
         <div class="qr-code" id="qrCode"></div>
       </div>
     </main>
 
     <!-- Stats -->
     <div id="statsSection" class="stats-section">
-      <h3 class="stats-title">📊 Link Statistics</h3>
+      <h3 class="stats-title">ðŸ“Š Link Statistics</h3>
       <div class="stat-item">
         <span class="stat-label">Total Clicks</span>
         <span class="stat-value" id="clickCount">0</span>
@@ -811,9 +811,9 @@
       const url = shortUrl.textContent;
       try {
         await navigator.clipboard.writeText(url);
-        copyBtn.textContent = '✓ Copied!';
+        copyBtn.textContent = 'âœ“ Copied!';
         setTimeout(() => {
-          copyBtn.textContent = '📋 Copy Link';
+          copyBtn.textContent = 'ðŸ“‹ Copy Link';
         }, 2000);
       } catch (err) {
         showError('Failed to copy to clipboard');
@@ -908,7 +908,7 @@
 
     // Add subtle leaf floating animation
     document.addEventListener('DOMContentLoaded', () => {
-      const leaves = ['🌿', '🍃', '🌱', '🌸'];
+      const leaves = ['ðŸŒ¿', 'ðŸƒ', 'ðŸŒ±', 'ðŸŒ¸'];
       setInterval(() => {
         if (Math.random() < 0.3) {
           const leaf = document.createElement('div');
@@ -938,12 +938,18 @@
 
   <div class="style-selector">
     <span class="selector-label">STYLE:</span>
-    <a href="/?variant=cyberglitch" class="style-link ">⚡ CYBER</a>
-    <a href="/?variant=synthwave" class="style-link ">🌆 SYNTH</a>
-    <a href="/?variant=luxury" class="style-link ">💎 LUXURY</a>
-    <a href="/?variant=playful" class="style-link ">🎈 PLAY</a>
-    <a href="/?variant=industrial" class="style-link ">🏭 INDUST</a>
-    <a href="/?variant=brutalist" class="style-link ">⬛ BRUTAL</a>
+    <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
+    <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
+    <a href="luxury.html" class="style-link">💎 LUXURY</a>
+    <a href="playful.html" class="style-link">🎈 PLAY</a>
+    <a href="industrial.html" class="style-link">🏭 INDUST</a>
+    <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
+    <a href="artdeco.html" class="style-link">✨ DECO</a>
+    <a href="editorial.html" class="style-link">📰 EDIT</a>
+    <a href="maximalist-chaos.html" class="style-link">🔥 CHAOS</a>
+    <a href="organic.html" class="style-link active">🌿 ORGANIC</a>
+    <a href="softpastel.html" class="style-link">🌸 PASTEL</a>
+    <a href="retro-futurystyczny.html" class="style-link">🚀 RETRO</a>
   </div>
   
   <style>

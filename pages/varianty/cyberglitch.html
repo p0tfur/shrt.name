@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -669,10 +669,28 @@
   <a href="/admin" class="admin-link">[ADMIN]</a>
 
   <script>
-    // Load saved variant preference
+    // Load saved variant preference and navigate to local variant pages.
+    const variantFiles = {
+      synthwave: 'synthwave.html',
+      cyberglitch: 'cyberglitch.html',
+      luxury: 'luxury.html',
+      playful: 'playful.html',
+      industrial: 'industrial.html',
+      brutalist: 'brutalist.html',
+      artdeco: 'artdeco.html',
+      editorial: 'editorial.html',
+      'maximalist-chaos': 'maximalist-chaos.html',
+      organic: 'organic.html',
+      softpastel: 'softpastel.html',
+      'retro-futurystyczny': 'retro-futurystyczny.html'
+    };
+
     const savedVariant = localStorage.getItem('shrtname_variant');
-    if (savedVariant && savedVariant !== 'cyberglitch' && !window.location.search.includes('variant=')) {
-      window.location.href = '/?variant=' + savedVariant;
+    if (savedVariant && savedVariant !== 'cyberglitch') {
+      const targetFile = variantFiles[savedVariant];
+      if (targetFile && !window.location.pathname.endsWith(targetFile)) {
+        window.location.href = targetFile;
+      }
     }
 
     const form = document.getElementById('shorten-form');
@@ -783,13 +801,17 @@
   <div class="style-selector">
     <span class="selector-label">STYLE:</span>
     <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
-    <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
+    <a href="cyberglitch.html" class="style-link active">⚡ CYBER</a>
     <a href="luxury.html" class="style-link">💎 LUXURY</a>
     <a href="playful.html" class="style-link">🎈 PLAY</a>
     <a href="industrial.html" class="style-link">🏭 INDUST</a>
     <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
     <a href="artdeco.html" class="style-link">✨ DECO</a>
     <a href="editorial.html" class="style-link">📰 EDIT</a>
+    <a href="maximalist-chaos.html" class="style-link">🔥 CHAOS</a>
+    <a href="organic.html" class="style-link">🌿 ORGANIC</a>
+    <a href="softpastel.html" class="style-link">🌸 PASTEL</a>
+    <a href="retro-futurystyczny.html" class="style-link">🚀 RETRO</a>
   </div>
   
   <style>

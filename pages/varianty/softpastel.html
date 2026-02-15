@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -306,7 +306,7 @@
     }
 
     .loading::before {
-      content: '✨';
+      content: 'âœ¨';
       display: block;
       font-size: 2rem;
       margin-bottom: 15px;
@@ -333,7 +333,7 @@
     }
 
     .error::before {
-      content: '💕';
+      content: 'ðŸ’•';
       display: block;
       font-size: 1.8rem;
       margin-bottom: 10px;
@@ -669,7 +669,7 @@
   <div class="container">
     <!-- Header -->
     <header class="header">
-      <span class="logo-emoji">🌸</span>
+      <span class="logo-emoji">ðŸŒ¸</span>
       <h1>shrt.name</h1>
       <p>Soft Pastel URL Shortener</p>
     </header>
@@ -696,7 +696,7 @@
 
         <div class="custom-group">
           <label class="custom-label" for="customCode">
-            <span>✨</span>
+            <span>âœ¨</span>
             Custom Code (Optional)
           </label>
           <input
@@ -711,7 +711,7 @@
         </div>
 
         <button type="submit" class="submit-btn">
-          ✨ Shorten URL
+          âœ¨ Shorten URL
         </button>
       </form>
 
@@ -726,28 +726,28 @@
       <!-- Result -->
       <div id="result" class="result">
         <div class="result-header">
-          <span class="result-icon">💖</span>
+          <span class="result-icon">ðŸ’–</span>
           <h3 class="result-title">Your Short Link</h3>
         </div>
         <div class="short-url" id="shortUrl"></div>
         <p class="original-url" id="originalUrl"></p>
 
         <div class="actions">
-          <button id="copyBtn" class="action-btn">📋 Copy</button>
-          <button id="visitBtn" class="action-btn">🔗 Open</button>
+          <button id="copyBtn" class="action-btn">ðŸ“‹ Copy</button>
+          <button id="visitBtn" class="action-btn">ðŸ”— Open</button>
         </div>
       </div>
 
       <!-- QR Code -->
       <div id="qrSection" class="qr-section">
-        <h4 class="qr-title">📱 QR Code</h4>
+        <h4 class="qr-title">ðŸ“± QR Code</h4>
         <div class="qr-code" id="qrCode"></div>
       </div>
     </main>
 
     <!-- Stats -->
     <div id="statsSection" class="stats-section">
-      <h3 class="stats-title">📊 Link Statistics</h3>
+      <h3 class="stats-title">ðŸ“Š Link Statistics</h3>
       <div class="stat-item">
         <span class="stat-label">Total Clicks</span>
         <span class="stat-value" id="clickCount">0</span>
@@ -845,9 +845,9 @@
       const url = shortUrl.textContent;
       try {
         await navigator.clipboard.writeText(url);
-        copyBtn.textContent = '✓ Copied!';
+        copyBtn.textContent = 'âœ“ Copied!';
         setTimeout(() => {
-          copyBtn.textContent = '📋 Copy';
+          copyBtn.textContent = 'ðŸ“‹ Copy';
         }, 2000);
       } catch (err) {
         showError('Failed to copy to clipboard');
@@ -942,7 +942,7 @@
 
     // Add floating emoji animation
     document.addEventListener('DOMContentLoaded', () => {
-      const emojis = ['🌸', '✨', '💖', '🌺', '💕', '🌷'];
+      const emojis = ['ðŸŒ¸', 'âœ¨', 'ðŸ’–', 'ðŸŒº', 'ðŸ’•', 'ðŸŒ·'];
       setInterval(() => {
         if (Math.random() < 0.2) {
           const emoji = document.createElement('div');
@@ -972,12 +972,18 @@
 
   <div class="style-selector">
     <span class="selector-label">STYLE:</span>
-    <a href="/?variant=cyberglitch" class="style-link ">⚡ CYBER</a>
-    <a href="/?variant=synthwave" class="style-link ">🌆 SYNTH</a>
-    <a href="/?variant=luxury" class="style-link ">💎 LUXURY</a>
-    <a href="/?variant=playful" class="style-link ">🎈 PLAY</a>
-    <a href="/?variant=industrial" class="style-link ">🏭 INDUST</a>
-    <a href="/?variant=brutalist" class="style-link ">⬛ BRUTAL</a>
+    <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
+    <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
+    <a href="luxury.html" class="style-link">💎 LUXURY</a>
+    <a href="playful.html" class="style-link">🎈 PLAY</a>
+    <a href="industrial.html" class="style-link">🏭 INDUST</a>
+    <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
+    <a href="artdeco.html" class="style-link">✨ DECO</a>
+    <a href="editorial.html" class="style-link">📰 EDIT</a>
+    <a href="maximalist-chaos.html" class="style-link">🔥 CHAOS</a>
+    <a href="organic.html" class="style-link">🌿 ORGANIC</a>
+    <a href="softpastel.html" class="style-link active">🌸 PASTEL</a>
+    <a href="retro-futurystyczny.html" class="style-link">🚀 RETRO</a>
   </div>
   
   <style>

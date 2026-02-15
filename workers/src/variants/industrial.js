@@ -640,10 +640,10 @@ export const industrialHTML = `
     <footer class="footer">
       <div class="footer-info">
         <span>shrt.name</span>
-        <span>2024</span>
+        <span>2026</span>
         <span>MIT_LICENSE</span>
       </div>
-      <div>BUILD: 2024.01.11.01</div>
+      <div>BUILD: 2026.01.11.01</div>
     </footer>
   </div>
 

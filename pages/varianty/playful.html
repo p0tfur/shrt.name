@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>shrt.name 🎈 Shorten Your Links!</title>
+  <title>shrt.name ðŸŽˆ Shorten Your Links!</title>
   <meta name="description" content="Fun URL shortener that makes shortening links feel like playtime!">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -290,7 +290,7 @@
       overflow: hidden;
     }
     .submit-button::before {
-      content: '🚀';
+      content: 'ðŸš€';
       position: absolute;
       right: var(--space-md);
       top: 50%;
@@ -559,20 +559,20 @@
   <div class="container">
     <header class="header">
       <h1 class="logo">
-        <span class="logo-emoji">🎈</span>
+        <span class="logo-emoji">ðŸŽˆ</span>
         shrt.name
       </h1>
-      <p class="tagline">Make Your Links Fun! 🎉</p>
+      <p class="tagline">Make Your Links Fun! ðŸŽ‰</p>
     </header>
 
     <form id="shorten-form" class="form-card">
       <div class="form-group">
-        <label class="form-label">🔗 Your Link</label>
+        <label class="form-label">ðŸ”— Your Link</label>
         <input type="url" id="url-input" class="form-input" placeholder="https://" required autocomplete="off" />
       </div>
 
       <div class="form-group">
-        <label class="form-label">✨ Custom Name</label>
+        <label class="form-label">âœ¨ Custom Name</label>
         <input type="text" id="code-input" class="form-input" placeholder="my-cool-link" autocomplete="off" />
       </div>
 
@@ -583,37 +583,37 @@
 
     <div id="result" class="result hidden">
       <div class="result-header">
-        <span class="result-emoji">🎊</span>
+        <span class="result-emoji">ðŸŽŠ</span>
         <h2 class="result-title">Yay! Link Created!</h2>
       </div>
 
       <div class="result-content">
         <div class="result-field">
-          <label class="result-label">📌 Your Short Link</label>
+          <label class="result-label">ðŸ“Œ Your Short Link</label>
           <a href="#" id="short-url" target="_blank" class="short-url"></a>
         </div>
 
         <div class="result-stats">
           <div class="stat-item">
-            <span class="stat-label">👆 Clicks</span>
+            <span class="stat-label">ðŸ‘† Clicks</span>
             <span class="stat-value" id="stat-clicks">0</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">🎯 Type</span>
+            <span class="stat-label">ðŸŽ¯ Type</span>
             <span class="stat-value" id="stat-type">Auto</span>
           </div>
           <div class="stat-item">
-            <span class="stat-label">🏷️ Code</span>
+            <span class="stat-label">ðŸ·ï¸ Code</span>
             <span class="stat-value" id="stat-code"></span>
           </div>
         </div>
 
         <div class="result-actions">
           <button class="action-button copy-btn" id="copy-btn">
-            📋 Copy It!
+            ðŸ“‹ Copy It!
           </button>
           <button class="action-button stats-btn" id="view-stats-btn">
-            📊 See Stats
+            ðŸ“Š See Stats
           </button>
         </div>
 
@@ -653,12 +653,12 @@
       const code = codeInput.value.trim();
 
       if (!url) {
-        alert('🙈 Oops! Please add a URL first!');
+        alert('ðŸ™ˆ Oops! Please add a URL first!');
         return;
       }
 
       submitBtn.disabled = true;
-      submitBtn.textContent = '🔄 Working on it...';
+      submitBtn.textContent = 'ðŸ”„ Working on it...';
 
       try {
         const response = await fetch('https://shrt-name.p-wesolowski.workers.dev/api/shorten', {
@@ -685,11 +685,11 @@
           // Fun confetti effect
           createConfetti();
         } else {
-          alert('😢 ' + (data.error || 'Something went wrong!'));
+          alert('ðŸ˜¢ ' + (data.error || 'Something went wrong!'));
         }
       } catch (error) {
         console.error('Error:', error);
-        alert('😵 Network trouble! Try again!');
+        alert('ðŸ˜µ Network trouble! Try again!');
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = 'Make it Short!';
@@ -699,7 +699,7 @@
     copyBtn.addEventListener('click', async () => {
       try {
         await navigator.clipboard.writeText(shortUrl.textContent);
-        alert('🎉 Copied to clipboard!');
+        alert('ðŸŽ‰ Copied to clipboard!');
       } catch (error) {
         const textArea = document.createElement('textarea');
         textArea.value = shortUrl.textContent;
@@ -707,7 +707,7 @@
         textArea.select();
         document.execCommand('copy');
         document.body.removeChild(textArea);
-        alert('🎉 Copied to clipboard!');
+        alert('ðŸŽ‰ Copied to clipboard!');
       }
     });
 
@@ -717,7 +717,7 @@
       const data = await response.json();
 
       if (data.success) {
-        alert('📊 Stats!\n\nClicks: ' + data.clicks + '\nCreated: ' + new Date(data.created_at).toLocaleString());
+        alert('ðŸ“Š Stats!\n\nClicks: ' + data.clicks + '\nCreated: ' + new Date(data.created_at).toLocaleString());
       }
     });
 
@@ -757,12 +757,18 @@
 
   <div class="style-selector">
     <span class="selector-label">STYLE:</span>
-    <a href="/?variant=cyberglitch" class="style-link ">⚡ CYBER</a>
-    <a href="/?variant=synthwave" class="style-link ">🌆 SYNTH</a>
-    <a href="/?variant=luxury" class="style-link ">💎 LUXURY</a>
-    <a href="/?variant=playful" class="style-link active">🎈 PLAY</a>
-    <a href="/?variant=industrial" class="style-link ">🏭 INDUST</a>
-    <a href="/?variant=brutalist" class="style-link ">⬛ BRUTAL</a>
+    <a href="synthwave.html" class="style-link">🌆 SYNTH</a>
+    <a href="cyberglitch.html" class="style-link">⚡ CYBER</a>
+    <a href="luxury.html" class="style-link">💎 LUXURY</a>
+    <a href="playful.html" class="style-link active">🎈 PLAY</a>
+    <a href="industrial.html" class="style-link">🏭 INDUST</a>
+    <a href="brutalist.html" class="style-link">⬛ BRUTAL</a>
+    <a href="artdeco.html" class="style-link">✨ DECO</a>
+    <a href="editorial.html" class="style-link">📰 EDIT</a>
+    <a href="maximalist-chaos.html" class="style-link">🔥 CHAOS</a>
+    <a href="organic.html" class="style-link">🌿 ORGANIC</a>
+    <a href="softpastel.html" class="style-link">🌸 PASTEL</a>
+    <a href="retro-futurystyczny.html" class="style-link">🚀 RETRO</a>
   </div>
   
   <style>
