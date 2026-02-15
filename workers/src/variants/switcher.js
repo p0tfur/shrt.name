@@ -6,9 +6,9 @@
 
 import { cyberGlitchHTML } from './cyberglitch.js';
 import { synthwaveHTML } from './synthwave.js';
-import { luxuryHTML } from './variants/luxury.js';
-import { playfulHTML } from './variants/playful.js';
-import { industrialHTML } from './variants/industrial.js';
+import { luxuryHTML } from './luxury.js';
+import { playfulHTML } from './playful.js';
+import { industrialHTML } from './industrial.js';
 
 // Available variants
 const VARIANTS = {
@@ -111,160 +111,76 @@ export function getAllVariants() {
 }
 
 /**
- * Create variant switcher HTML with localStorage persistence
+ * Create simple inline variant switcher
  */
 export function createVariantSwitcher(currentVariant) {
-  const variants = getAllVariants();
+  const embeddedVariants = Object.entries(VARIANTS).filter(([_, v]) => v.html !== null);
 
   return `
-    <div class="variant-switcher" id="variant-switcher">
-      <div class="switcher-title">SELECT_AESTHETIC://</div>
-      <div class="switcher-options">
-        ${variants.filter(v => v.html !== null).map(v => {
-          const variantKey = Object.keys(VARIANTS).find(key => VARIANTS[key] === v);
-          const isActive = v.name === currentVariant.name;
-          const activeClass = isActive ? 'active' : '';
-
-          return `
-            <a href="?variant=${variantKey}" class="variant-option ${activeClass}" data-variant="${variantKey}" onclick="saveVariant('${variantKey}')">
-              <span class="variant-emoji">${v.emoji}</span>
-              <span class="variant-name">${v.name}</span>
-              ${isActive ? '<span class="variant-indicator">[ACTIVE]</span>' : ''}
-            </a>
-          `;
-        }).join('')}
-      </div>
-      <div class="switcher-footer">
-        <small>Preference saved in browser</small>
-      </div>
-      <button class="switcher-close" onclick="closeSwitcher()">[X]</button>
+    <div class="style-selector">
+      <span class="selector-label">STYLE:</span>
+      ${embeddedVariants.map(([key, v]) => {
+        const isActive = v.name === currentVariant.name;
+        return `
+          <a href="?variant=${key}" 
+             class="style-link ${isActive ? 'active' : ''}" 
+             onclick="localStorage.setItem('shrtname_variant', '${key}')">
+            ${v.emoji} ${v.name}
+          </a>
+        `;
+      }).join('')}
     </div>
 
     <style>
-      .variant-switcher {
+      .style-selector {
         position: fixed;
         bottom: 20px;
-        right: 20px;
-        background: rgba(0, 0, 0, 0.95);
-        border: 2px solid var(--accent-color, #00f3ff);
-        border-radius: 8px;
-        padding: 16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.9);
+        border: 2px solid var(--neon-cyan, #00f3ff);
+        padding: 12px 20px;
         z-index: 10000;
-        min-width: 200px;
-        backdrop-filter: blur(10px);
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-      }
-
-      .switcher-title {
-        font-family: monospace;
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-        color: var(--text-color, #ffffff);
-        margin-bottom: 12px;
-        border-bottom: 1px solid var(--accent-color, #00f3ff);
-        padding-bottom: 8px;
-      }
-
-      .switcher-options {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-      }
-
-      .variant-option {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding: 8px 12px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--border-color, #333);
-        border-radius: 4px;
-        color: var(--text-color, #ffffff);
-        text-decoration: none;
+        gap: 12px;
         font-family: monospace;
-        font-size: 0.875rem;
-        transition: all 0.2s ease-out;
-        position: relative;
-      }
-
-      .variant-option:hover {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: var(--accent-color, #00f3ff);
-        transform: translateX(-4px);
-      }
-
-      .variant-option.active {
-        background: var(--accent-color, #00f3ff);
-        color: var(--bg-color, #000000);
-        border-color: var(--accent-color, #00f3ff);
-      }
-
-      .variant-emoji {
-        font-size: 1.25rem;
-      }
-
-      .variant-name {
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      .variant-indicator {
-        margin-left: auto;
         font-size: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: center;
       }
-
-      .switcher-close {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        background: transparent;
-        border: none;
-        color: var(--text-color, #ffffff);
-        font-size: 1.25rem;
-        cursor: pointer;
-        opacity: 0.5;
-        transition: opacity 0.2s ease-out;
-        line-height: 1;
+      .selector-label {
+        color: var(--text-muted, #666);
+        font-weight: 700;
+        letter-spacing: 0.1em;
       }
-
-      .switcher-close:hover {
-        opacity: 1;
+      .style-link {
+        color: var(--text-secondary, #b8b8d4);
+        text-decoration: none;
+        padding: 4px 8px;
+        border: 1px solid transparent;
+        transition: all 0.2s;
+        white-space: nowrap;
+      }
+      .style-link:hover {
+        color: var(--neon-cyan, #00f3ff);
+        border-color: var(--neon-cyan, #00f3ff);
+      }
+      .style-link.active {
+        background: var(--neon-cyan, #00f3ff);
+        color: var(--bg-void, #0a0a0f);
+        font-weight: 700;
+      }
+      @media (max-width: 768px) {
+        .style-selector {
+          bottom: 10px;
+          padding: 8px 12px;
+          gap: 8px;
+          font-size: 0.625rem;
+        }
       }
     </style>
-
-    <script>
-      // Save variant preference to localStorage
-      function saveVariant(variantName) {
-        try {
-          localStorage.setItem('shrtname_variant', variantName);
-          console.log('[SYSTEM] Variant saved:', variantName);
-        } catch (e) {
-          console.error('[ERROR] Failed to save variant:', e);
-        }
-      }
-      
-      // Close switcher
-      function closeSwitcher() {
-        const switcher = document.querySelector('.variant-switcher');
-        if (switcher) {
-          switcher.style.animation = 'fadeOut 0.2s ease forwards';
-          setTimeout(() => switcher.remove(), 200);
-        }
-      }
-      
-      // Add fadeOut animation
-      const style = document.createElement('style');
-      style.textContent = \`
-        @keyframes fadeOut {
-          to { opacity: 0; transform: translateY(10px); }
-        }
-      \`;
-      document.head.appendChild(style);
-    </script>
   `;
 }
 
-export { VARIANTS, getAllVariants };
+export { VARIANTS };

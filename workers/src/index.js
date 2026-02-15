@@ -67,9 +67,7 @@ export default {
         const variant = getVariant(request);
         const variantKey = Object.keys(VARIANTS).find(key => VARIANTS[key] === variant) || 'cyberglitch';
 
-        // Check if variant switcher UI should be shown
-        const showSwitcher = url.searchParams.has('switcher');
-
+        // Always show variant switcher
         let html = variant.html;
 
         // Add localStorage check script at the start of body
@@ -83,7 +81,7 @@ export default {
               // If no variant in URL, check localStorage
               if (!currentVariant) {
                 const savedVariant = localStorage.getItem('shrtname_variant');
-                if (savedVariant && savedVariant !== 'cyberglitch') {
+                if (savedVariant && savedVariant !== '${variantKey}') {
                   window.location.href = '/?variant=' + savedVariant;
                 }
               } else {
@@ -96,10 +94,8 @@ export default {
         
         html = html.replace('<body>', '<body>' + localStorageScript);
 
-        // Add variant switcher if requested
-        if (showSwitcher) {
-          html = html.replace('</body>', createVariantSwitcher(variant) + '</body>');
-        }
+        // Always add variant switcher
+        html = html.replace('</body>', createVariantSwitcher(variant) + '</body>');
 
         return new Response(html, {
           headers: {
