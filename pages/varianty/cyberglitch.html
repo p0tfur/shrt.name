@@ -711,7 +711,7 @@
       submitBtn.textContent = 'PROCESSING...';
 
       try {
-        const response = await fetch('/api/shorten', {
+        const response = await fetch('https://shrt-name.p-wesolowski.workers.dev/api/shorten', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ url, code: code || null })
@@ -757,7 +757,7 @@
     viewStatsBtn.addEventListener('click', async () => {
       const code = statCode.textContent;
       try {
-        const response = await fetch('/api/stats/' + code);
+        const response = await fetch('https://shrt-name.p-wesolowski.workers.dev/api/stats/' + code);
         const data = await response.json();
 
         if (data.success) {
