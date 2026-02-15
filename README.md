@@ -15,18 +15,20 @@ A retro-futuristic, fast, and free URL shortener built entirely on Cloudflare Wo
 - **📱 QR Codes**: Automatically generated for each short URL
 - **📦 Bulk Shortening**: Shorten up to 10 URLs at once
 - **🎛️ Admin Panel**: Manage all links (delete, edit, view stats)
+- **💾 Style Persistence**: Your chosen aesthetic is saved in localStorage
 - **📱 Mobile Friendly**: Fully responsive design with dark mode support
-- **🎮 Interactive**: Sound effects, animations, and particle systems
+- **🎮 Interactive**: Sound effects, animations, glitch effects, and particle systems
 
 ## 🎨 AESTHETIC VARIANTS
 
-shrt.name supports **11 unique aesthetic variants** - choose the one that fits your brand!
+shrt.name supports **12 unique aesthetic variants** - choose the one that fits your brand!
 
 ### Available Variants
 
 | Variant | URL | Description | Best For |
 |---------|-----|-------------|----------|
-| **Synthwave** | `/` | Retro-futuristic, neon glow, CRT effects | Tech brands, developers |
+| **CYBER GLITCH** | `/` (default) | High contrast, glitch effects, aggressive geometry | Cyberpunk, tech, gaming |
+| **Synthwave** | `?variant=synthwave` | Retro-futuristic, neon glow, CRT effects | Tech brands, developers |
 | **Luxury** | `?variant=luxury` | Premium, elegant, gold accents | Enterprise, luxury services |
 | **Playful** | `?variant=playful` | Colorful, bouncy, fun & friendly | Social apps, casual use |
 | **Industrial** | `?variant=industrial` | Brutalist, terminal-like, functional | Dev tools, CLI apps |
@@ -38,7 +40,7 @@ shrt.name supports **11 unique aesthetic variants** - choose the one that fits y
 | **Soft Pastel** | `?variant=softpastel` | Gentle colors, calming | Lifestyle, wellness |
 | **Retro-futurystyczny** | `?variant=retro-futurystyczny` | Polish retro sci-fi | Nostalgia, sci-fi |
 
-**Note:** First 5 variants are embedded in the worker. Variants 6-11 are served from `/pages/varianty/` folder.
+**Note:** First 6 variants are embedded in the worker. Variants 7-12 are served from `/pages/varianty/` folder.
 
 ### How to Access Variants
 
@@ -57,7 +59,8 @@ https://shrt.name/?variant=industrial
 **Local Development**:
 ```
 # Embedded variants (in worker)
-http://localhost:8787/                          # Synthwave (default)
+http://localhost:8787/                          # CYBER GLITCH (default)
+http://localhost:8787/?variant=synthwave
 http://localhost:8787/?variant=luxury
 http://localhost:8787/?variant=playful
 http://localhost:8787/?variant=industrial
@@ -71,6 +74,9 @@ http://localhost:8787/varianty/organic.html
 http://localhost:8787/varianty/softpastel.html
 http://localhost:8787/varianty/retro-futurystyczny.html
 ```
+
+**🎨 Style Persistence**
+Your chosen style is automatically saved in browser's localStorage and will be restored on your next visit.
 
 ---
 
@@ -151,7 +157,8 @@ routes = [
 Visit your domain and test all variants:
 ```
 # Main variants
-https://shrt.name/                          # Synthwave (default)
+https://shrt.name/                          # CYBER GLITCH (default)
+https://shrt.name/?variant=synthwave
 https://shrt.name/?variant=luxury
 https://shrt.name/?variant=playful
 https://shrt.name/?variant=industrial
@@ -166,16 +173,16 @@ https://shrt.name/varianty/softpastel.html
 
 ---
 
-## 🎯 Variant Comparison (Top 5)
+## 🎯 Variant Comparison (Top 6)
 
-| Feature | Synthwave | Luxury | Playful | Industrial | Brutalist |
-|---------|-----------|---------|----------|-------------|-----------|
-| **Colors** | Neon dark | Gold/cream | Pastel bright | Grayscale | B&W + red |
-| **Typography** | Orbitron/Mono | Cormorant/Montserrat | Fredoka/Nunito | JetBrains/Code Pro | Impact/Mono |
-| **Animations** | Glitch, particles | Smooth, elegant | Bouncy, confetti | Minimal, instant | Hard cuts |
-| **Character** | Retro-futuristic | Premium | Fun/Playful | Brutalist | Raw/Anti-design |
-| **Best For** | Tech brands | Enterprise | Social apps | Dev tools | Artists |
-| **Lines CSS** | ~800 | ~600 | ~700 | ~500 | ~600 |
+| Feature | CYBER GLITCH | Synthwave | Luxury | Playful | Industrial | Brutalist |
+|---------|--------------|-----------|---------|----------|-------------|-----------|
+| **Colors** | Yellow/Pink/Cyan | Neon dark | Gold/cream | Pastel bright | Grayscale | B&W + red |
+| **Typography** | JetBrains/VT323 | Orbitron/Mono | Cormorant/Montserrat | Fredoka/Nunito | JetBrains/Code Pro | Impact/Mono |
+| **Animations** | Glitch, scanlines | Glitch, particles | Smooth, elegant | Bouncy, confetti | Minimal, instant | Hard cuts |
+| **Character** | Aggressive cyberpunk | Retro-futuristic | Premium | Fun/Playful | Brutalist | Raw/Anti-design |
+| **Best For** | Gaming, tech | Tech brands | Enterprise | Social apps | Dev tools | Artists |
+| **Sharp edges** | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 
 ## 📡 API Endpoints
 

@@ -9,7 +9,7 @@ import { redirect } from './routes/redirect.js';
 import { stats } from './routes/stats.js';
 import { adminList, adminDelete, adminUpdate } from './routes/admin.js';
 import { errorResponse } from './utils.js';
-import { getVariant, createVariantSwitcher } from './variants/switcher.js';
+import { getVariant, createVariantSwitcher, VARIANTS, getAllVariants } from './variants/switcher.js';
 
 export default {
   async fetch(request, env) {
@@ -65,11 +65,36 @@ export default {
       if (path === '/' || path === '/index.html') {
         // Get variant from URL parameter
         const variant = getVariant(request);
+        const variantKey = Object.keys(VARIANTS).find(key => VARIANTS[key] === variant) || 'cyberglitch';
 
         // Check if variant switcher UI should be shown
         const showSwitcher = url.searchParams.has('switcher');
 
         let html = variant.html;
+
+        // Add localStorage check script at the start of body
+        const localStorageScript = `
+          <script>
+            // Check for saved variant preference
+            (function() {
+              const urlParams = new URLSearchParams(window.location.search);
+              const currentVariant = urlParams.get('variant');
+              
+              // If no variant in URL, check localStorage
+              if (!currentVariant) {
+                const savedVariant = localStorage.getItem('shrtname_variant');
+                if (savedVariant && savedVariant !== 'cyberglitch') {
+                  window.location.href = '/?variant=' + savedVariant;
+                }
+              } else {
+                // Save current variant to localStorage
+                localStorage.setItem('shrtname_variant', currentVariant);
+              }
+            })();
+          </script>
+        `;
+        
+        html = html.replace('<body>', '<body>' + localStorageScript);
 
         // Add variant switcher if requested
         if (showSwitcher) {

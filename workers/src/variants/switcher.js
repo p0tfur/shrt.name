@@ -1,8 +1,10 @@
 /**
  * VARIANT SWITCHER
  * Mechanism to switch between different aesthetic variants
+ * With localStorage persistence
  */
 
+import { cyberGlitchHTML } from './cyberglitch.js';
 import { synthwaveHTML } from './synthwave.js';
 import { luxuryHTML } from './variants/luxury.js';
 import { playfulHTML } from './variants/playful.js';
@@ -10,65 +12,83 @@ import { industrialHTML } from './variants/industrial.js';
 
 // Available variants
 const VARIANTS = {
+  cyberglitch: {
+    name: 'CYBER GLITCH',
+    html: cyberGlitchHTML,
+    emoji: '⚡',
+    description: 'High contrast, glitch effects, aggressive geometry'
+  },
   synthwave: {
     name: 'Synthwave',
     html: synthwaveHTML,
-    emoji: '⚡'
+    emoji: '🌆',
+    description: 'Retro-futuristic, neon glow, CRT effects'
   },
   luxury: {
     name: 'Luxury',
     html: luxuryHTML,
-    emoji: '💎'
+    emoji: '💎',
+    description: 'Premium, elegant, gold accents'
   },
   playful: {
     name: 'Playful',
     html: playfulHTML,
-    emoji: '🎈'
+    emoji: '🎈',
+    description: 'Colorful, bouncy, fun & friendly'
   },
   industrial: {
     name: 'Industrial',
     html: industrialHTML,
-    emoji: '🏭'
+    emoji: '🏭',
+    description: 'Brutalist, terminal-like, functional'
   },
   brutalist: {
     name: 'Brutalist',
     html: null, // Placeholder - served from pages/varianty/brutalist.html
-    emoji: '⬛'
+    emoji: '⬛',
+    description: 'Raw, geometric, anti-design'
   },
   'maximalist-chaos': {
     name: 'Maximalist Chaos',
     html: null, // Placeholder - served from pages/varianty/maximalist-chaos.html
-    emoji: '🌀'
+    emoji: '🌀',
+    description: 'Chaotic, colorful, overwhelming'
   },
   organic: {
     name: 'Organic',
     html: null, // Placeholder - served from pages/varianty/organic.html
-    emoji: '🌿'
+    emoji: '🌿',
+    description: 'Natural, flowing, soft shapes'
   },
   editorial: {
     name: 'Editorial',
     html: null, // Placeholder - served from pages/varianty/editorial.html
-    emoji: '📰'
+    emoji: '📰',
+    description: 'Magazine-style, typography focused'
   },
   artdeco: {
     name: 'Art Deco',
     html: null, // Placeholder - served from pages/varianty/artdeco.html
-    emoji: '✨'
+    emoji: '✨',
+    description: '1920s elegance, geometric patterns'
   },
   softpastel: {
     name: 'Soft Pastel',
     html: null, // Placeholder - served from pages/varianty/softpastel.html
-    emoji: '🌸'
+    emoji: '🌸',
+    description: 'Gentle colors, calming'
   },
   'retro-futurystyczny': {
     name: 'Retro-futuristic',
     html: null, // Placeholder - served from pages/varianty/retro-futurystyczny.html
-    emoji: '🚀'
+    emoji: '🚀',
+    description: 'Polish retro sci-fi'
   }
 };
 
 /**
- * Get variant from URL query parameter
+ * Get variant from URL query parameter or default to cyberglitch
+ * Note: localStorage is checked client-side in the HTML
  */
 export function getVariant(request) {
   const url = new URL(request.url);
@@ -79,8 +99,8 @@ export function getVariant(request) {
     return VARIANTS[variantParam];
   }
 
-  // Default to synthwave
-  return VARIANTS.synthwave;
+  // Default to cyberglitch (new default)
+  return VARIANTS.cyberglitch;
 }
 
 /**
@@ -91,29 +111,33 @@ export function getAllVariants() {
 }
 
 /**
- * Create variant switcher HTML
+ * Create variant switcher HTML with localStorage persistence
  */
 export function createVariantSwitcher(currentVariant) {
   const variants = getAllVariants();
 
   return `
-    <div class="variant-switcher">
-      <div class="switcher-title">SELECT AESTHETIC:</div>
+    <div class="variant-switcher" id="variant-switcher">
+      <div class="switcher-title">SELECT_AESTHETIC://</div>
       <div class="switcher-options">
-        ${variants.map(v => {
-          const isActive = v.name.toLowerCase() === currentVariant.name.toLowerCase();
+        ${variants.filter(v => v.html !== null).map(v => {
+          const variantKey = Object.keys(VARIANTS).find(key => VARIANTS[key] === v);
+          const isActive = v.name === currentVariant.name;
           const activeClass = isActive ? 'active' : '';
 
           return `
-            <a href="?variant=${v.name.toLowerCase()}" class="variant-option ${activeClass}">
+            <a href="?variant=${variantKey}" class="variant-option ${activeClass}" data-variant="${variantKey}" onclick="saveVariant('${variantKey}')">
               <span class="variant-emoji">${v.emoji}</span>
               <span class="variant-name">${v.name}</span>
-              ${isActive ? '<span class="variant-indicator">✓</span>' : ''}
+              ${isActive ? '<span class="variant-indicator">[ACTIVE]</span>' : ''}
             </a>
           `;
         }).join('')}
       </div>
-      <button class="switcher-close" onclick="closeSwitcher()">&times;</button>
+      <div class="switcher-footer">
+        <small>Preference saved in browser</small>
+      </div>
+      <button class="switcher-close" onclick="closeSwitcher()">[X]</button>
     </div>
 
     <style>
@@ -212,11 +236,35 @@ export function createVariantSwitcher(currentVariant) {
     </style>
 
     <script>
-      function closeSwitcher() {
-        document.querySelector('.variant-switcher').remove();
+      // Save variant preference to localStorage
+      function saveVariant(variantName) {
+        try {
+          localStorage.setItem('shrtname_variant', variantName);
+          console.log('[SYSTEM] Variant saved:', variantName);
+        } catch (e) {
+          console.error('[ERROR] Failed to save variant:', e);
+        }
       }
+      
+      // Close switcher
+      function closeSwitcher() {
+        const switcher = document.querySelector('.variant-switcher');
+        if (switcher) {
+          switcher.style.animation = 'fadeOut 0.2s ease forwards';
+          setTimeout(() => switcher.remove(), 200);
+        }
+      }
+      
+      // Add fadeOut animation
+      const style = document.createElement('style');
+      style.textContent = \`
+        @keyframes fadeOut {
+          to { opacity: 0; transform: translateY(10px); }
+        }
+      \`;
+      document.head.appendChild(style);
     </script>
   `;
 }
 
-export { VARIANTS };
+export { VARIANTS, getAllVariants };

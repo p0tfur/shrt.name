@@ -633,6 +633,21 @@ export const playfulHTML = `
   </style>
 </head>
 <body>
+  <script>
+    // Check for saved variant preference
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentVariant = urlParams.get('variant');
+      if (!currentVariant) {
+        const savedVariant = localStorage.getItem('shrtname_variant');
+        if (savedVariant && savedVariant !== 'playful') {
+          window.location.href = '/?variant=' + savedVariant;
+        }
+      } else {
+        localStorage.setItem('shrtname_variant', currentVariant);
+      }
+    })();
+  </script>
   <div class="floating-shapes">
     <div class="shape shape-1"></div>
     <div class="shape shape-2"></div>

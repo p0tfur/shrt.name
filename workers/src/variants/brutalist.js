@@ -443,6 +443,21 @@ export const brutalistHTML = `<!DOCTYPE html>
   </style>
 </head>
 <body>
+  <script>
+    // Check for saved variant preference
+    (function() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const currentVariant = urlParams.get('variant');
+      if (!currentVariant) {
+        const savedVariant = localStorage.getItem('shrtname_variant');
+        if (savedVariant && savedVariant !== 'brutalist') {
+          window.location.href = '/?variant=' + savedVariant;
+        }
+      } else {
+        localStorage.setItem('shrtname_variant', currentVariant);
+      }
+    })();
+  </script>
   <div class="container">
     <header class="header">
       <h1>SHRT.NAME</h1>
