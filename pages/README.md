@@ -203,7 +203,7 @@ Get statistics for a link.
   "code": "abc123",
   "original_url": "https://example.com/very/long/url",
   "clicks": 123,
-  "created_at": "2024-01-01T00:00:00.000Z",
+  "created_at": "2026-01-01T00:00:00.000Z",
   "custom_code": false,
   "expires_at": null
 }

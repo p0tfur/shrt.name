@@ -15,70 +15,10 @@ A retro-futuristic, fast, and free URL shortener built entirely on Cloudflare Wo
 - **📱 QR Codes**: Automatically generated for each short URL
 - **📦 Bulk Shortening**: Shorten up to 10 URLs at once
 - **🎛️ Admin Panel**: Manage all links (delete, edit, view stats)
-- **💾 Style Persistence**: Your chosen aesthetic is saved in localStorage
 - **📱 Mobile Friendly**: Fully responsive design with dark mode support
 - **🎮 Interactive**: Sound effects, animations, glitch effects, and particle systems
 
-## 🎨 AESTHETIC VARIANTS
 
-shrt.name supports **12 unique aesthetic variants** - choose the one that fits your brand!
-
-### Available Variants
-
-| Variant | URL | Description | Best For |
-|---------|-----|-------------|----------|
-| **CYBER GLITCH** | `/` (default) | High contrast, glitch effects, aggressive geometry | Cyberpunk, tech, gaming |
-| **Synthwave** | `?variant=synthwave` | Retro-futuristic, neon glow, CRT effects | Tech brands, developers |
-| **Luxury** | `?variant=luxury` | Premium, elegant, gold accents | Enterprise, luxury services |
-| **Playful** | `?variant=playful` | Colorful, bouncy, fun & friendly | Social apps, casual use |
-| **Industrial** | `?variant=industrial` | Brutalist, terminal-like, functional | Dev tools, CLI apps |
-| **Brutalist** | `?variant=brutalist` | Raw, geometric, anti-design | Artists, bold brands |
-| **Art Deco** | `?variant=artdeco` | 1920s elegance, geometric patterns | Luxury, vintage |
-| **Editorial** | `?variant=editorial` | Magazine-style, typography focused | Publishers, blogs |
-| **Maximalist Chaos** | `?variant=maximalist-chaos` | Chaotic, colorful, overwhelming | Creative, experimental |
-| **Organic** | `?variant=organic` | Natural, flowing, soft shapes | Wellness, eco brands |
-| **Soft Pastel** | `?variant=softpastel` | Gentle colors, calming | Lifestyle, wellness |
-| **Retro-futurystyczny** | `?variant=retro-futurystyczny` | Polish retro sci-fi | Nostalgia, sci-fi |
-
-**Note:** First 6 variants are embedded in the worker. Variants 7-12 are served from `/pages/varianty/` folder.
-
-### How to Access Variants
-
-**Default (Synthwave)**:
-```
-https://shrt.name/
-```
-
-**Specific Variant**:
-```
-https://shrt.name/?variant=luxury
-https://shrt.name/?variant=playful
-https://shrt.name/?variant=industrial
-```
-
-**Local Development**:
-```
-# Embedded variants (in worker)
-http://localhost:8787/                          # CYBER GLITCH (default)
-http://localhost:8787/?variant=synthwave
-http://localhost:8787/?variant=luxury
-http://localhost:8787/?variant=playful
-http://localhost:8787/?variant=industrial
-http://localhost:8787/?variant=brutalist
-
-# Additional variants (in pages/varianty/)
-http://localhost:8787/varianty/artdeco.html
-http://localhost:8787/varianty/editorial.html
-http://localhost:8787/varianty/maximalist-chaos.html
-http://localhost:8787/varianty/organic.html
-http://localhost:8787/varianty/softpastel.html
-http://localhost:8787/varianty/retro-futurystyczny.html
-```
-
-**🎨 Style Persistence**
-Your chosen style is automatically saved in browser's localStorage and will be restored on your next visit.
-
----
 
 ## 🚀 Quick Start
 
@@ -154,35 +94,10 @@ routes = [
    - Deploy again: `wrangler deploy`
 
 10. **Test it!**
-Visit your domain and test all variants:
+Visit your domain to test your deployed worker:
 ```
-# Main variants
-https://shrt.name/                          # CYBER GLITCH (default)
-https://shrt.name/?variant=synthwave
-https://shrt.name/?variant=luxury
-https://shrt.name/?variant=playful
-https://shrt.name/?variant=industrial
-https://shrt.name/?variant=brutalist
-
-# Additional variants
-https://shrt.name/varianty/artdeco.html
-https://shrt.name/varianty/editorial.html
-https://shrt.name/varianty/organic.html
-https://shrt.name/varianty/softpastel.html
+https://shrt.name/
 ```
-
----
-
-## 🎯 Variant Comparison (Top 6)
-
-| Feature | CYBER GLITCH | Synthwave | Luxury | Playful | Industrial | Brutalist |
-|---------|--------------|-----------|---------|----------|-------------|-----------|
-| **Colors** | Yellow/Pink/Cyan | Neon dark | Gold/cream | Pastel bright | Grayscale | B&W + red |
-| **Typography** | JetBrains/VT323 | Orbitron/Mono | Cormorant/Montserrat | Fredoka/Nunito | JetBrains/Code Pro | Impact/Mono |
-| **Animations** | Glitch, scanlines | Glitch, particles | Smooth, elegant | Bouncy, confetti | Minimal, instant | Hard cuts |
-| **Character** | Aggressive cyberpunk | Retro-futuristic | Premium | Fun/Playful | Brutalist | Raw/Anti-design |
-| **Best For** | Gaming, tech | Tech brands | Enterprise | Social apps | Dev tools | Artists |
-| **Sharp edges** | ✅ | ❌ | ❌ | ❌ | ✅ | ✅ |
 
 ## 📡 API Endpoints
 
@@ -364,6 +279,7 @@ shrt.name/
 ├── workers/
 │   ├── src/
 │   │   ├── index.js              # Main worker
+│   │   ├── ui.js                 # Unified UI HTML
 │   │   ├── db.js                 # D1 operations
 │   │   ├── kv.js                 # KV operations
 │   │   ├── utils.js              # Utilities
@@ -375,12 +291,6 @@ shrt.name/
 │   │       ├── redirect.js
 │   │       ├── stats.js
 │   │       └── admin.js        # Admin API
-│   │   └── variants/
-│   │       ├── synthwave.js    # Default variant
-│   │       ├── luxury.js
-│   │       ├── playful.js
-│   │       ├── industrial.js
-│   │       └── switcher.js
 │   ├── wrangler.toml
 │   ├── package.json
 │   └── schema.sql
@@ -453,7 +363,6 @@ MIT License - feel free to use this project for any purpose.
 
 - [x] Bulk URL shortening
 - [x] Admin panel with link management
-- [x] Multiple aesthetic variants
 - [ ] User accounts and authentication
 - [ ] Advanced analytics (graphs, charts)
 - [ ] Custom domains for users

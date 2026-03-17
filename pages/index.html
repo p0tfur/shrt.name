@@ -11,20 +11,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <script>
-    (function() {
-      const urlParams = new URLSearchParams(window.location.search);
-      const currentVariant = urlParams.get('variant');
-      if (!currentVariant) {
-        const savedVariant = localStorage.getItem('shrtname_variant');
-        if (savedVariant) {
-          window.location.href = '/?variant=' + savedVariant;
-        }
-      } else {
-        localStorage.setItem('shrtname_variant', currentVariant);
-      }
-    })();
-  </script>
+
   <!-- CRT Overlay -->
   <div class="crt-overlay">
     <div class="scanlines"></div>
@@ -199,66 +186,6 @@
 
   <script src="js/app.js"></script>
 
-  <div class="style-selector">
-    <span class="selector-label">STYLE:</span>
-    <a href="/" class="style-link active" onclick="localStorage.setItem('shrtname_variant', 'synthwave')">🌆 SYNTH</a>
-    <a href="varianty/cyberglitch.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'cyberglitch')">⚡ CYBER</a>
-    <a href="varianty/luxury.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'luxury')">💎 LUXURY</a>
-    <a href="varianty/playful.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'playful')">🎈 PLAY</a>
-    <a href="varianty/industrial.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'industrial')">🏭 INDUST</a>
-    <a href="varianty/brutalist.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'brutalist')">⬛ BRUTAL</a>
-    <a href="varianty/artdeco.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'artdeco')">✨ DECO</a>
-    <a href="varianty/editorial.html" class="style-link" onclick="localStorage.setItem('shrtname_variant', 'editorial')">📰 EDIT</a>
-  </div>
-  
-  <style>
-    .style-selector {
-      position: fixed;
-      bottom: 60px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(0, 0, 0, 0.9);
-      border: 2px solid #00f3ff;
-      padding: 12px 20px;
-      z-index: 10000;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-family: monospace;
-      font-size: 0.75rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-    .selector-label {
-      color: #666;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-    }
-    .style-link {
-      color: #b8b8d4;
-      text-decoration: none;
-      padding: 4px 8px;
-      border: 1px solid transparent;
-      transition: all 0.2s;
-      white-space: nowrap;
-    }
-    .style-link:hover {
-      color: #00f3ff;
-      border-color: #00f3ff;
-    }
-    .style-link.active {
-      background: #00f3ff;
-      color: #0a0a0f;
-      font-weight: 700;
-    }
-    @media (max-width: 768px) {
-      .style-selector {
-        bottom: 10px;
-        padding: 8px 12px;
-        gap: 8px;
-        font-size: 0.625rem;
-      }
-    }
-  </style>
+
 </body>
 </html>

@@ -16,7 +16,6 @@
 - URL shortening with auto-generated or custom short codes
 - Click analytics and statistics
 - QR code generation
-- Multiple aesthetic UI variants (synthwave, luxury, playful, industrial, brutalist, etc.)
 - Rate limiting and security protections
 - Real-time click tracking
 
@@ -52,11 +51,7 @@ shrt.name/
 │   │   │   ├── shorten.js     # POST /api/shorten
 │   │   │   ├── redirect.js    # GET /:code
 │   │   │   └── stats.js       # GET /api/stats/:code
-│   │   └── variants/
-│   │       ├── switcher.js    # Variant switching logic
-│   │       ├── luxury.js      # Luxury variant HTML
-│   │       ├── playful.js     # Playful variant HTML
-│   │       └── industrial.js  # Industrial variant HTML
+│   │   └── ui.js              # Unified UI HTML
 │   ├── wrangler.toml          # Cloudflare configuration
 │   ├── package.json           # NPM dependencies
 │   └── schema.sql             # Database schema
@@ -65,16 +60,11 @@ shrt.name/
 │   ├── index.html             # Main synthwave page
 │   ├── css/style.css          # Stylesheet
 │   ├── js/app.js              # Frontend JavaScript
-│   └── varianty/              # Additional UI variants
-│       ├── brutalist.html
-│       ├── luxury.html
-│       ├── playful.html
-│       └── ...
 │
 ├── docs/                       # Documentation
 │   ├── shrt-name.md           # Implementation plan
 │   ├── frontend-redesign.md   # Design system docs
-│   └── all-variants.md        # Variant documentation
+│   └── frontend-unification.md # UI unification documentation
 │
 ├── examples/                   # Example/reference projects
 │   ├── Sink-master/           # Nuxt-based URL shortener example
@@ -415,46 +405,7 @@ await db.prepare(`SELECT * FROM links WHERE code = '${code}'`).first();
 
 ---
 
-## UI Variants System
 
-The project supports multiple aesthetic variants selectable via URL parameter.
-
-### Available Variants
-
-| Variant | URL Parameter | Description |
-|---------|---------------|-------------|
-| Synthwave | (default) | Retro-futuristic, neon glow |
-| Luxury | `?variant=luxury` | Premium, gold accents |
-| Playful | `?variant=playful` | Colorful, fun |
-| Industrial | `?variant=industrial` | Brutalist, terminal-like |
-| Brutalist | `?variant=brutalist` | Raw, geometric |
-| Maximalist Chaos | `?variant=maximalist-chaos` | Chaotic, colorful |
-| Organic | `?variant=organic` | Natural, flowing |
-| Editorial | `?variant=editorial` | Magazine-style |
-| Art Deco | `?variant=artdeco` | 1920s elegance |
-| Soft Pastel | `?variant=softpastel` | Gentle colors |
-| Retro-futuristic | `?variant=retro-futurystyczny` | Polish retro |
-
-### Adding a New Variant
-
-1. Create variant HTML/JS in `workers/src/variants/{name}.js`
-2. Export the HTML string as `{name}HTML`
-3. Add to `workers/src/variants/switcher.js`:
-
-```javascript
-import { newVariantHTML } from './variants/newvariant.js';
-
-const VARIANTS = {
-  // ... existing variants
-  newvariant: {
-    name: 'New Variant',
-    html: newVariantHTML,
-    emoji: '🎨'
-  }
-};
-```
-
----
 
 ## Common Issues & Solutions
 
@@ -531,5 +482,5 @@ wrangler secret put SECRET_KEY
 
 ---
 
-*Last updated: 2026-02-15*
+*Last updated: 2026-03-17*
 *Project: shrt.name // SYNTHWAVE URL SHORTENER*

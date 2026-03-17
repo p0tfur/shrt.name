@@ -55,7 +55,7 @@ export async function shorten(request, env) {
     // Cache in KV
     await cacheLink(env.LINKS, shortCode, {
       id: linkId,
-      url: normalizedUrl,
+      original_url: normalizedUrl,
       user_id: null
     });
 
@@ -160,7 +160,7 @@ export async function bulkShorten(request, env) {
         // Cache in KV
         await cacheLink(env.LINKS, shortCode, {
           id: linkId,
-          url: normalizedUrl,
+          original_url: normalizedUrl,
           user_id: null
         });
 
