@@ -10,6 +10,7 @@ import { stats } from './routes/stats.js';
 import { adminList, adminDelete, adminUpdate } from './routes/admin.js';
 import { errorResponse } from './utils.js';
 import { mainHTML } from './ui.js';
+import { crosspostingHTML } from './seo-pages/crossposting.js';
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -63,6 +64,24 @@ export default {
       // Serve static frontend files
       if (path === '/' || path === '/index.html') {
         return new Response(mainHTML, {
+          headers: {
+            'Content-Type': 'text/html;charset=UTF-8',
+          }
+        });
+      }
+
+      // Serve Crossposting SEO Page
+      if (path === '/crossposting' || path === '/crossposting/') {
+        return new Response(crosspostingHTML, {
+          headers: {
+            'Content-Type': 'text/html;charset=UTF-8',
+          }
+        });
+      }
+
+      // Serve Crossposting SEO Page
+      if (path === '/crossposting' || path === '/crossposting/') {
+        return new Response(crosspostingHTML, {
           headers: {
             'Content-Type': 'text/html;charset=UTF-8',
           }

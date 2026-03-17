@@ -8,184 +8,701 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════════
+       SHRT.NAME // SYNTHWAVE AESTHETIC
+       ═══════════════════════════════════════════════════════════════════ */
+    :root {
+      /* Deep Void Backgrounds */
+      --bg-void: #050508;
+      --bg-surface: rgba(16, 16, 28, 0.6);
+      --bg-glass: rgba(26, 26, 46, 0.4);
+      
+      /* Vibrant Core Neons */
+      --neon-cyan: #0ff0fc;
+      --neon-cyan-dim: rgba(15, 240, 252, 0.2);
+      --neon-magenta: #ff00ff;
+      --neon-purple: #9d00ff;
+      --neon-green: #00ffaa;
+      
+      /* Text Colors */
+      --text-primary: #ffffff;
+      --text-secondary: #a9b1d6;
+      --text-muted: #565f89;
+      
+      /* Typography */
+      --font-display: 'Orbitron', system-ui, sans-serif;
+      --font-mono: 'Space Mono', monospace;
+      
+      /* Effects */
+      --glow-cyan: 0 0 15px rgba(15, 240, 252, 0.5), inset 0 0 10px rgba(15, 240, 252, 0.2);
+      --glow-magenta: 0 0 15px rgba(255, 0, 255, 0.5), inset 0 0 10px rgba(255, 0, 255, 0.2);
+      --blur-md: backdrop-filter: blur(12px) saturate(180%);
+    }
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: var(--font-mono);
+      background-color: var(--bg-void);
+      /* Premium Grid Background */
+      background-image: 
+        linear-gradient(rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15, 240, 252, 0.05) 1px, transparent 1px),
+        radial-gradient(circle at 50% 0%, rgba(157, 0, 255, 0.15) 0%, transparent 60%);
+      background-size: 40px 40px, 40px 40px, 100% 100%;
+      background-position: center top;
+      background-attachment: fixed;
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+    
+    /* CRT Scanline Overlay */
+    body::after {
+      content: " ";
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+      z-index: 999;
+      background-size: 100% 2px, 3px 100%;
+      pointer-events: none;
+      opacity: 0.6;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+      position: relative;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-weight: 900;
+      font-size: clamp(3rem, 10vw, 5rem);
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+    .logo-prefix {
+      color: #fff;
+      text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--neon-cyan),
+        0 0 40px var(--neon-cyan),
+        0 0 80px var(--neon-cyan);
+    }
+    .logo-separator {
+      color: var(--neon-magenta);
+      animation: blink 2s infinite, neonPulse 1.5s alternate infinite ease-in-out;
+      margin: 0 0.1em;
+    }
+    @keyframes blink {
+      0%, 30%, 100% { opacity: 1; }
+      15% { opacity: 0.2; }
+    }
+    @keyframes neonPulse {
+      0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-magenta); }
+      100% { text-shadow: 0 0 5px #fff, 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
+    }
+    .logo-suffix {
+      color: #fff;
+      text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 20px var(--neon-purple),
+        0 0 40px var(--neon-purple),
+        0 0 80px var(--neon-purple);
+    }
+    .tagline {
+      font-family: var(--font-mono);
+      font-size: clamp(0.75rem, 2vw, 1rem);
+      letter-spacing: 0.4em;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      opacity: 0.8;
+      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
+    }
+    .form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: var(--bg-glass);
+      padding: 2.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Decoration lines for the form */
+    .form::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      opacity: 0.5;
+    }
+    .form::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-magenta), transparent);
+      opacity: 0.5;
+    }
+
+    .input-group {
+      position: relative;
+    }
+    input {
+      width: 100%;
+      padding: 1.5rem 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      color: var(--text-primary);
+      background: rgba(10, 10, 15, 0.7);
+      border: 1px solid rgba(15, 240, 252, 0.2);
+      border-radius: 12px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    input::placeholder {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      transition: opacity 0.3s;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--neon-cyan);
+      box-shadow: var(--glow-cyan);
+      background: rgba(10, 10, 15, 0.9);
+      transform: translateY(-2px);
+    }
+    input:focus::placeholder {
+      opacity: 0.3;
+    }
+    input:hover:not(:focus) {
+      border-color: rgba(15, 240, 252, 0.4);
+      background: rgba(15, 15, 22, 0.8);
+    }
+    button {
+      width: 100%;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      font-family: var(--font-display);
+      font-size: 1.125rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(157, 0, 255, 0.2));
+      border: 1px solid var(--neon-magenta);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      text-shadow: 0 0 10px var(--neon-magenta);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
+    }
+    
+    /* Button shine effect */
+    button::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%; width: 50%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transform: skewX(-20deg);
+      transition: 0.5s;
+    }
+    
+    button:hover {
+      border-color: var(--neon-cyan);
+      background: linear-gradient(135deg, rgba(15, 240, 252, 0.3), rgba(255, 0, 255, 0.3));
+      transform: translateY(-3px);
+      box-shadow: 0 10px 25px rgba(15, 240, 252, 0.3), 0 0 40px rgba(255, 0, 255, 0.2);
+      text-shadow: 0 0 10px var(--neon-cyan);
+    }
+    button:hover::before {
+      left: 150%;
+    }
+    button:active {
+      transform: translateY(1px);
+      box-shadow: 0 2px 10px rgba(15, 240, 252, 0.3);
+    }
+    button:disabled {
+      background: rgba(10, 10, 15, 0.5);
+      border-color: var(--text-muted);
+      color: var(--text-muted);
+      text-shadow: none;
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+    button:disabled::before {
+      display: none;
+    }
+    #result {
+      margin-top: 2.5rem;
+      padding: 2.5rem;
+      background: rgba(16, 16, 28, 0.8);
+      border: 1px solid var(--neon-green);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 255, 170, 0.15), inset 0 0 15px rgba(0, 255, 170, 0.05);
+      display: none;
+      animation: expandIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      backdrop-filter: blur(12px) saturate(180%);
+      -webkit-backdrop-filter: blur(12px) saturate(180%);
+      transform-origin: top center;
+    }
+    @keyframes expandIn {
+      0% { opacity: 0; transform: scaleY(0.8) translateY(-20px); filter: blur(10px); }
+      100% { opacity: 1; transform: scaleY(1) translateY(0); filter: blur(0); }
+    }
+    #result.visible {
+      display: block;
+    }
+    .result-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px dashed rgba(0, 255, 170, 0.3);
+      position: relative;
+    }
+    .result-header::before {
+      content: '';
+      position: absolute;
+      bottom: -1px; left: 0; width: 30%; height: 1px;
+      background: var(--neon-green);
+      box-shadow: 0 0 10px var(--neon-green);
+    }
+    .result-status {
+      font-size: 1.75rem;
+      color: var(--neon-green);
+      text-shadow: 0 0 15px var(--neon-green);
+      background: rgba(0, 255, 170, 0.1);
+      width: 48px; height: 48px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 255, 170, 0.3);
+    }
+    .result-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--neon-green);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin: 0;
+    }
+    .result-content {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+    .result-field {
+      margin-bottom: 0.5rem;
+    }
+    .result-label {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      color: var(--neon-cyan);
+      background: rgba(15, 240, 252, 0.1);
+      padding: 0.25rem 0.75rem;
+      border-radius: 4px;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .result-value {
+      background: rgba(5, 5, 8, 0.6);
+      border: 1px solid rgba(15, 240, 252, 0.2);
+      border-radius: 8px;
+      padding: 1.25rem;
+      position: relative;
+      overflow: hidden;
+      box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+    }
+    .result-link {
+      display: block;
+      color: var(--text-primary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 1.125rem;
+      word-break: break-all;
+      transition: all 0.2s ease-out;
+      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+    }
+    .result-link:hover {
+      color: var(--neon-cyan);
+      text-shadow: 0 0 15px var(--neon-cyan);
+    }
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 0.5rem 0;
+    }
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem 1rem;
+      background: rgba(15, 240, 252, 0.03);
+      border: 1px solid rgba(15, 240, 252, 0.1);
+      border-radius: 8px;
+      transition: all 0.2s ease-out;
+      position: relative;
+      overflow: hidden;
+    }
+    .stat-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+      opacity: 0;
+      transition: 0.3s;
+    }
+    .stat-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+      background: rgba(15, 240, 252, 0.08);
+      border-color: rgba(15, 240, 252, 0.3);
+    }
+    .stat-item:hover::before {
+      opacity: 1;
+    }
+    .stat-label {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .stat-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+    }
+    
+    .result-actions {
+      display: flex;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .action-button {
+      flex: 1;
+      padding: 1.25rem 1rem;
+      font-family: var(--font-display);
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    .action-button:hover {
+      background: rgba(15, 240, 252, 0.1);
+      border-color: var(--neon-cyan);
+      box-shadow: 0 0 20px rgba(15, 240, 252, 0.2), inset 0 0 10px rgba(15, 240, 252, 0.1);
+      transform: translateY(-2px);
+      color: #fff;
+      text-shadow: 0 0 5px var(--neon-cyan);
+    }
+    .qr-section {
+      margin-top: 2rem;
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+    .qr-container {
+      display: inline-block;
+      position: relative;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease;
+    }
+    .qr-container:hover {
+      transform: scale(1.05);
+      border-color: rgba(15, 240, 252, 0.3);
+      box-shadow: 0 0 20px rgba(15, 240, 252, 0.15);
+    }
+    .qr-image {
+      width: 160px;
+      height: 160px;
+      display: block;
+      border-radius: 8px;
+    }
+    .qr-download {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--text-secondary);
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s ease-out;
+    }
+    .qr-download:hover {
+      color: #fff;
+      border-color: var(--neon-cyan);
+      background: rgba(15, 240, 252, 0.1);
+      box-shadow: 0 0 15px rgba(15, 240, 252, 0.2);
+    }
+    .footer {
+      margin-top: 4rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+    .footer a {
+      color: var(--neon-cyan);
+      text-decoration: none;
+      transition: all 0.15s ease-out;
+    }
+    .footer a:hover {
+      color: var(--neon-magenta);
+      text-shadow: 0 0 10px var(--neon-magenta);
+    }
+    .admin-link {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.75rem;
+      opacity: 0.5;
+      transition: opacity 0.2s;
+    }
+    .admin-link:hover {
+      opacity: 1;
+      color: var(--neon-cyan);
+    }
+  </style>
 </head>
 <body>
 
-  <!-- CRT Overlay -->
-  <div class="crt-overlay">
-    <div class="scanlines"></div>
-    <div class="vignette"></div>
-  </div>
-
-  <!-- Animated Background Grid -->
-  <div class="grid-background">
-    <div class="grid-horizontal"></div>
-    <div class="grid-vertical"></div>
-    <div class="grid-glow"></div>
-  </div>
-
-  <!-- Main Container -->
-  <main class="main-container">
-    <!-- Header -->
+  <div class="container">
     <header class="header">
-      <h1 class="logo" data-text="SHRT//NAME">
+      <h1 class="logo">
         <span class="logo-prefix">SHRT</span><span class="logo-separator">//</span><span class="logo-suffix">NAME</span>
       </h1>
-      <p class="tagline glitch-text" data-text="COMPRESS//THE//INTERNET">
-        COMPRESS//THE//INTERNET
-      </p>
+      <p class="tagline">COMPRESS//THE//INTERNET</p>
     </header>
 
-    <!-- Shortening Form -->
-    <section class="form-section">
-      <form id="shorten-form" class="url-form">
-        <!-- URL Input -->
-        <div class="input-group">
-          <label class="input-label" for="url-input">
-            <span class="label-icon">⏣</span>
-            <span class="label-text">INPUT_URL_STREAM</span>
-            <span class="label-status"></span>
-          </label>
-          <input
-            type="url"
-            id="url-input"
-            class="neon-input"
-            placeholder="https://..."
-            required
-            autocomplete="off"
-          />
-          <div class="input-border"></div>
-          <div class="input-glow"></div>
-        </div>
-
-        <!-- Custom Code Input -->
-        <div class="input-group">
-          <label class="input-label" for="code-input">
-            <span class="label-icon">⏤</span>
-            <span class="label-text">CUSTOM_CODENAME</span>
-            <span class="label-optional">[OPTIONAL]</span>
-          </label>
-          <input
-            type="text"
-            id="code-input"
-            class="neon-input"
-            placeholder="ALT_CODENAME"
-            autocomplete="off"
-          />
-          <div class="input-border"></div>
-          <div class="input-glow"></div>
-        </div>
-
-        <!-- Submit Button -->
-        <button type="submit" class="cyber-button" id="submit-btn">
-          <span class="button-text">INITIATE_COMPRESSION</span>
-          <span class="button-glitch"></span>
-          <div class="button-scan"></div>
-          <div class="button-glow"></div>
-        </button>
-      </form>
-    </section>
-
-    <!-- Result Section -->
-    <section id="result" class="result-section hidden">
-      <div class="result-container">
-        <div class="result-header">
-          <span class="result-status">✓</span>
-          <h2 class="result-title">COMPRESSION_COMPLETE</h2>
-        </div>
-
-        <div class="result-content">
-          <!-- Short URL -->
-          <div class="result-field">
-            <label class="result-label">COMPRESSED_URL</label>
-            <div class="result-value">
-              <a href="#" id="short-url" target="_blank" class="result-link"></a>
-            </div>
-          </div>
-
-          <!-- Stats -->
-          <div class="result-stats">
-            <div class="stat-item">
-              <span class="stat-label">CLICKS</span>
-              <span class="stat-value" id="stat-clicks">0</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">TYPE</span>
-              <span class="stat-value" id="stat-type">AUTO</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-label">CODE</span>
-              <span class="stat-value" id="stat-code"></span>
-            </div>
-          </div>
-
-          <!-- Actions -->
-          <div class="result-actions">
-            <button class="action-button copy-btn" id="copy-btn">
-              <span class="btn-icon">⎘</span>
-              <span class="btn-text">COPY_TO_CLIPBOARD</span>
-            </button>
-            <button class="action-button stats-btn" id="view-stats-btn">
-              <span class="btn-icon">📊</span>
-              <span class="btn-text">VIEW_ANALYTICS</span>
-            </button>
-          </div>
-
-          <!-- QR Code -->
-          <div class="qr-section">
-            <div class="qr-container">
-              <img id="qr-code" src="" alt="QR CODE" class="qr-image" loading="lazy">
-              <div class="qr-overlay"></div>
-            </div>
-            <a href="#" id="qr-download" target="_blank" class="qr-download">DOWNLOAD_QR</a>
-          </div>
-        </div>
+    <form id="shorten-form" class="form">
+      <div class="input-group">
+        <input type="url" id="url-input" placeholder="https://example.com/very-long-url" required autocomplete="off" />
       </div>
-    </section>
 
-    <!-- Stats Modal -->
-    <div id="stats-modal" class="modal hidden">
-      <div class="modal-overlay"></div>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title">ANALYTICS_DATA</h3>
-          <button class="modal-close" id="close-modal">×</button>
-        </div>
-        <div class="modal-body">
-          <div class="stats-grid">
-            <div class="stats-row">
-              <span class="stats-label">TOTAL_CLICKS</span>
-              <span class="stats-value" id="modal-clicks">0</span>
-            </div>
-            <div class="stats-row">
-              <span class="stats-label">CREATED_AT</span>
-              <span class="stats-value" id="modal-created"></span>
-            </div>
-            <div class="stats-row">
-              <span class="stats-label">ORIGINAL_URL</span>
-              <span class="stats-value" id="modal-url"></span>
-            </div>
+      <div class="input-group">
+        <input type="text" id="code-input" placeholder="Custom short link (optional)" autocomplete="off" />
+      </div>
+
+      <button type="submit" id="submit-btn" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Shorten URL
+      </button>
+    </form>
+
+    <div id="result">
+      <div class="result-header">
+        <span class="result-status">✓</span>
+        <h2 class="result-title">URL Shortened</h2>
+      </div>
+
+      <div class="result-content">
+        <div class="result-field">
+          <label class="result-label">Your Short URL</label>
+          <div class="result-value">
+            <a href="#" id="short-url" target="_blank" class="result-link"></a>
           </div>
+        </div>
+
+        <div class="result-stats">
+          <div class="stat-item">
+            <span class="stat-label">CLICKS</span>
+            <span class="stat-value" id="stat-clicks">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">TYPE</span>
+            <span class="stat-value" id="stat-type">AUTO</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">CODE</span>
+            <span class="stat-value" id="stat-code"></span>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <button class="action-button copy-btn" id="copy-btn">
+            Copy to Clipboard
+          </button>
+          <button class="action-button stats-btn" id="view-stats-btn">
+            View Analytics
+          </button>
+        </div>
+
+        <div class="qr-section">
+          <div class="qr-container">
+            <img id="qr-code" src="" alt="QR CODE" class="qr-image" loading="lazy">
+          </div>
+          <a href="#" id="qr-download" target="_blank" class="qr-download">Download QR</a>
         </div>
       </div>
     </div>
-  </main>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <p class="footer-text">
-      <span class="footer-separator">⏣</span>
-      <span class="footer-link">SHRT.NAME</span>
-      <span class="footer-separator">//</span>
-      <span class="footer-year">2026</span>
-      <span class="footer-separator">//</span>
-      <span class="footer-status">SYSTEM_ONLINE</span>
-    </p>
-  </footer>
+    <footer class="footer">
+      <p>SHRT.NAME // 2026</p>
+      <p style="margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); letter-spacing: 0.05em; text-transform: none;">
+        Do you use social media? Try <a href="https://crosspostingpal.com?ref=shrt.name" target="_blank">crosspostingpal.com</a>
+      </p>
+    </footer>
+  </div>
 
-  <script src="js/app.js"></script>
+  <a href="/admin" class="admin-link">[ADMIN]</a>
 
+  <script>
+    const form = document.getElementById('shorten-form');
+    const urlInput = document.getElementById('url-input');
+    const codeInput = document.getElementById('code-input');
+    const submitBtn = document.getElementById('submit-btn');
+    const result = document.getElementById('result');
+    const shortUrl = document.getElementById('short-url');
+    const statClicks = document.getElementById('stat-clicks');
+    const statType = document.getElementById('stat-type');
+    const statCode = document.getElementById('stat-code');
+    const copyBtn = document.getElementById('copy-btn');
+    const viewStatsBtn = document.getElementById('view-stats-btn');
+    const qrCode = document.getElementById('qr-code');
+    const qrDownload = document.getElementById('qr-download');
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const url = urlInput.value.trim();
+      const code = codeInput.value.trim();
+
+      if (!url) {
+        alert('Please enter a URL to shorten.');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Shortening...';
+
+      try {
+        const response = await fetch('/api/shorten', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url, code: code || null })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          shortUrl.href = data.short_url;
+          shortUrl.textContent = data.short_url;
+          statClicks.textContent = '0';
+          statType.textContent = data.custom_code ? 'CUSTOM' : 'AUTO';
+          statCode.textContent = data.code;
+
+          const qrUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=' + encodeURIComponent(data.short_url) + '&color=0ff0fc&bgcolor=050508';
+          qrCode.src = qrUrl;
+          qrDownload.href = qrUrl;
+
+          result.classList.add('visible');
+          setTimeout(() => {
+            result.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }, 100);
+        } else {
+          alert(data.error || 'Failed to shorten URL. Please try again.');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Network error. Please try again.');
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Shorten URL';
+      }
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(shortUrl.textContent);
+        alert('Copied to clipboard!');
+      } catch (error) {
+        const textArea = document.createElement('textarea');
+        textArea.value = shortUrl.textContent;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+        alert('Copied to clipboard!');
+      }
+    });
+
+    viewStatsBtn.addEventListener('click', async () => {
+      const code = statCode.textContent;
+      const response = await fetch('/api/stats/' + code);
+      const data = await response.json();
+
+      if (data.success) {
+        alert('CLICKS: ' + data.clicks + '\nCREATED: ' + new Date(data.created_at).toLocaleString());
+      } else {
+        alert('Failed to load statistics.');
+      }
+    });
+  </script>
 </body>
 </html>
