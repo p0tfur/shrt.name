@@ -8,41 +8,27 @@ export const mainHTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>shrt.name // COMPRESS THE INTERNET</title>
-  <meta name="description" content="URL shortener from the future. Compress your digital links.">
+  <title>shrt.name - URL Shortener</title>
+  <meta name="description" content="Fast, simple URL shortener. Shorten your links instantly.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════════════════════════════════
-       SHRT.NAME // SYNTHWAVE AESTHETIC
-       ═══════════════════════════════════════════════════════════════════ */
     :root {
-      /* Deep Void Backgrounds */
-      --bg-void: #050508;
-      --bg-surface: rgba(16, 16, 28, 0.6);
-      --bg-glass: rgba(26, 26, 46, 0.4);
+      --bg-primary: #0a0a0f;
+      --bg-secondary: #1a1a2e;
+      --bg-card: rgba(26, 26, 46, 0.6);
       
-      /* Vibrant Core Neons */
-      --neon-cyan: #0ff0fc;
-      --neon-cyan-dim: rgba(15, 240, 252, 0.2);
-      --neon-magenta: #ff00ff;
-      --neon-purple: #9d00ff;
-      --neon-green: #00ffaa;
+      --accent-primary: #00d4ff;
+      --accent-secondary: #7c3aed;
+      --accent-success: #10b981;
       
-      /* Text Colors */
       --text-primary: #ffffff;
-      --text-secondary: #a9b1d6;
-      --text-muted: #565f89;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
       
-      /* Typography */
       --font-display: 'Orbitron', system-ui, sans-serif;
       --font-mono: 'Space Mono', monospace;
-      
-      /* Effects */
-      --glow-cyan: 0 0 15px rgba(15, 240, 252, 0.5), inset 0 0 10px rgba(15, 240, 252, 0.2);
-      --glow-magenta: 0 0 15px rgba(255, 0, 255, 0.5), inset 0 0 10px rgba(255, 0, 255, 0.2);
-      --blur-md: backdrop-filter: blur(12px) saturate(180%);
     }
     *, *::before, *::after {
       margin: 0;
@@ -51,39 +37,14 @@ export const mainHTML = `<!DOCTYPE html>
     }
     body {
       font-family: var(--font-mono);
-      background-color: var(--bg-void);
-      /* Premium Grid Background */
-      background-image: 
-        linear-gradient(rgba(15, 240, 252, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(15, 240, 252, 0.05) 1px, transparent 1px),
-        radial-gradient(circle at 50% 0%, rgba(157, 0, 255, 0.15) 0%, transparent 60%);
-      background-size: 40px 40px, 40px 40px, 100% 100%;
-      background-position: center top;
-      background-attachment: fixed;
+      background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
       color: var(--text-primary);
       min-height: 100vh;
-      overflow-x: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       padding: 2rem;
       line-height: 1.6;
-    }
-    
-    /* CRT Scanline Overlay */
-    body::after {
-      content: " ";
-      display: block;
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
-      background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-      z-index: 999;
-      background-size: 100% 2px, 3px 100%;
-      pointer-events: none;
-      opacity: 0.6;
     }
 
     .container {
@@ -108,80 +69,32 @@ export const mainHTML = `<!DOCTYPE html>
       line-height: 1;
     }
     .logo-prefix {
-      color: #fff;
-      text-shadow: 
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px var(--neon-cyan),
-        0 0 40px var(--neon-cyan),
-        0 0 80px var(--neon-cyan);
+      color: var(--accent-primary);
     }
     .logo-separator {
-      color: var(--neon-magenta);
-      animation: blink 2s infinite, neonPulse 1.5s alternate infinite ease-in-out;
+      color: var(--text-secondary);
       margin: 0 0.1em;
     }
-    @keyframes blink {
-      0%, 30%, 100% { opacity: 1; }
-      15% { opacity: 0.2; }
-    }
-    @keyframes neonPulse {
-      0% { text-shadow: 0 0 5px #fff, 0 0 10px var(--neon-magenta); }
-      100% { text-shadow: 0 0 5px #fff, 0 0 20px var(--neon-magenta), 0 0 40px var(--neon-magenta); }
-    }
     .logo-suffix {
-      color: #fff;
-      text-shadow: 
-        0 0 5px #fff,
-        0 0 10px #fff,
-        0 0 20px var(--neon-purple),
-        0 0 40px var(--neon-purple),
-        0 0 80px var(--neon-purple);
+      color: var(--accent-secondary);
     }
     .tagline {
       font-family: var(--font-mono);
-      font-size: clamp(0.75rem, 2vw, 1rem);
-      letter-spacing: 0.4em;
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      letter-spacing: 0.1em;
       color: var(--text-secondary);
-      text-transform: uppercase;
-      opacity: 0.8;
-      background: linear-gradient(90deg, var(--neon-cyan), var(--neon-magenta));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      display: inline-block;
-      text-shadow: 0 0 20px rgba(255, 0, 255, 0.4);
     }
     .form {
       display: flex;
       flex-direction: column;
-      gap: 1.5rem;
-      background: var(--bg-glass);
-      padding: 2.5rem;
-      border-radius: 16px;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    /* Decoration lines for the form */
-    .form::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-      opacity: 0.5;
-    }
-    .form::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-magenta), transparent);
-      opacity: 0.5;
+      gap: 1rem;
+      background: var(--bg-card);
+      padding: 2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
 
     .input-group {
@@ -189,109 +102,68 @@ export const mainHTML = `<!DOCTYPE html>
     }
     input {
       width: 100%;
-      padding: 1.5rem 1.25rem;
+      padding: 1rem;
       font-family: var(--font-mono);
-      font-size: 1rem;
+      font-size: 0.95rem;
       color: var(--text-primary);
-      background: rgba(10, 10, 15, 0.7);
-      border: 1px solid rgba(15, 240, 252, 0.2);
-      border-radius: 12px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      transition: all 0.2s ease;
     }
     input::placeholder {
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      transition: opacity 0.3s;
     }
     input:focus {
       outline: none;
-      border-color: var(--neon-cyan);
-      box-shadow: var(--glow-cyan);
-      background: rgba(10, 10, 15, 0.9);
-      transform: translateY(-2px);
-    }
-    input:focus::placeholder {
-      opacity: 0.3;
-    }
-    input:hover:not(:focus) {
-      border-color: rgba(15, 240, 252, 0.4);
-      background: rgba(15, 15, 22, 0.8);
+      border-color: var(--accent-primary);
+      box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
     }
     button {
       width: 100%;
-      padding: 1.5rem;
-      margin-top: 1rem;
+      padding: 1rem;
+      margin-top: 0.5rem;
       font-family: var(--font-display);
-      font-size: 1.125rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
       color: #fff;
-      background: linear-gradient(135deg, rgba(255, 0, 255, 0.2), rgba(157, 0, 255, 0.2));
-      border: 1px solid var(--neon-magenta);
-      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+      border: none;
+      border-radius: 8px;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      text-shadow: 0 0 10px var(--neon-magenta);
-      position: relative;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(255, 0, 255, 0.1);
-    }
-    
-    /* Button shine effect */
-    button::before {
-      content: '';
-      position: absolute;
-      top: 0; left: -100%; width: 50%; height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transform: skewX(-20deg);
-      transition: 0.5s;
+      transition: all 0.2s ease;
     }
     
     button:hover {
-      border-color: var(--neon-cyan);
-      background: linear-gradient(135deg, rgba(15, 240, 252, 0.3), rgba(255, 0, 255, 0.3));
-      transform: translateY(-3px);
-      box-shadow: 0 10px 25px rgba(15, 240, 252, 0.3), 0 0 40px rgba(255, 0, 255, 0.2);
-      text-shadow: 0 0 10px var(--neon-cyan);
-    }
-    button:hover::before {
-      left: 150%;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 212, 255, 0.3);
     }
     button:active {
-      transform: translateY(1px);
-      box-shadow: 0 2px 10px rgba(15, 240, 252, 0.3);
+      transform: translateY(0);
     }
     button:disabled {
-      background: rgba(10, 10, 15, 0.5);
-      border-color: var(--text-muted);
+      background: var(--bg-secondary);
       color: var(--text-muted);
-      text-shadow: none;
-      opacity: 0.7;
+      opacity: 0.6;
       cursor: not-allowed;
       transform: none;
-      box-shadow: none;
-    }
-    button:disabled::before {
-      display: none;
     }
     #result {
-      margin-top: 2.5rem;
-      padding: 2.5rem;
-      background: rgba(16, 16, 28, 0.8);
-      border: 1px solid var(--neon-green);
-      border-radius: 16px;
-      box-shadow: 0 0 30px rgba(0, 255, 170, 0.15), inset 0 0 15px rgba(0, 255, 170, 0.05);
+      margin-top: 2rem;
+      padding: 2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--accent-success);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
       display: none;
-      animation: expandIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      backdrop-filter: blur(12px) saturate(180%);
-      -webkit-backdrop-filter: blur(12px) saturate(180%);
-      transform-origin: top center;
+      animation: fadeIn 0.3s ease;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
-    @keyframes expandIn {
-      0% { opacity: 0; transform: scaleY(0.8) translateY(-20px); filter: blur(10px); }
-      100% { opacity: 1; transform: scaleY(1) translateY(0); filter: blur(0); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     #result.visible {
       display: block;
@@ -299,36 +171,20 @@ export const mainHTML = `<!DOCTYPE html>
     .result-header {
       display: flex;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-      padding-bottom: 1.5rem;
-      border-bottom: 1px dashed rgba(0, 255, 170, 0.3);
-      position: relative;
-    }
-    .result-header::before {
-      content: '';
-      position: absolute;
-      bottom: -1px; left: 0; width: 30%; height: 1px;
-      background: var(--neon-green);
-      box-shadow: 0 0 10px var(--neon-green);
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
     .result-status {
-      font-size: 1.75rem;
-      color: var(--neon-green);
-      text-shadow: 0 0 15px var(--neon-green);
-      background: rgba(0, 255, 170, 0.1);
-      width: 48px; height: 48px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      border: 1px solid rgba(0, 255, 170, 0.3);
+      font-size: 1.5rem;
+      color: var(--accent-success);
     }
     .result-title {
       font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--neon-green);
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text-primary);
       margin: 0;
     }
     .result-content {
@@ -340,39 +196,30 @@ export const mainHTML = `<!DOCTYPE html>
       margin-bottom: 0.5rem;
     }
     .result-label {
-      display: inline-block;
+      display: block;
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      letter-spacing: 0.25em;
-      color: var(--neon-cyan);
-      background: rgba(15, 240, 252, 0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 4px;
+      color: var(--text-secondary);
       text-transform: uppercase;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
     .result-value {
-      background: rgba(5, 5, 8, 0.6);
-      border: 1px solid rgba(15, 240, 252, 0.2);
+      background: rgba(10, 10, 15, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      padding: 1.25rem;
-      position: relative;
-      overflow: hidden;
-      box-shadow: inset 0 5px 15px rgba(0,0,0,0.5);
+      padding: 1rem;
     }
     .result-link {
       display: block;
-      color: var(--text-primary);
+      color: var(--accent-primary);
       text-decoration: none;
       font-family: var(--font-mono);
-      font-size: 1.125rem;
+      font-size: 1rem;
       word-break: break-all;
-      transition: all 0.2s ease-out;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
+      transition: color 0.2s ease;
     }
     .result-link:hover {
-      color: var(--neon-cyan);
-      text-shadow: 0 0 15px var(--neon-cyan);
+      color: var(--accent-secondary);
     }
     .result-stats {
       display: grid;
@@ -384,30 +231,10 @@ export const mainHTML = `<!DOCTYPE html>
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 1.25rem 1rem;
-      background: rgba(15, 240, 252, 0.03);
-      border: 1px solid rgba(15, 240, 252, 0.1);
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 8px;
-      transition: all 0.2s ease-out;
-      position: relative;
-      overflow: hidden;
-    }
-    .stat-item::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 2px;
-      background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
-      opacity: 0;
-      transition: 0.3s;
-    }
-    .stat-item:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
-      background: rgba(15, 240, 252, 0.08);
-      border-color: rgba(15, 240, 252, 0.3);
-    }
-    .stat-item:hover::before {
-      opacity: 1;
     }
     .stat-label {
       font-family: var(--font-mono);
@@ -419,10 +246,9 @@ export const mainHTML = `<!DOCTYPE html>
     }
     .stat-value {
       font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 700;
+      font-size: 1.25rem;
+      font-weight: 600;
       color: var(--text-primary);
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
     }
     
     .result-actions {
@@ -432,25 +258,20 @@ export const mainHTML = `<!DOCTYPE html>
     }
     .action-button {
       flex: 1;
-      padding: 1.25rem 1rem;
-      font-family: var(--font-display);
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.15em;
+      padding: 0.875rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 500;
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 8px;
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      transition: all 0.2s ease;
     }
     .action-button:hover {
-      background: rgba(15, 240, 252, 0.1);
-      border-color: var(--neon-cyan);
-      box-shadow: 0 0 20px rgba(15, 240, 252, 0.2), inset 0 0 10px rgba(15, 240, 252, 0.1);
-      transform: translateY(-2px);
-      color: #fff;
-      text-shadow: 0 0 5px var(--neon-cyan);
+      background: rgba(0, 212, 255, 0.1);
+      border-color: var(--accent-primary);
     }
     .qr-section {
       margin-top: 2rem;
@@ -460,18 +281,10 @@ export const mainHTML = `<!DOCTYPE html>
     }
     .qr-container {
       display: inline-block;
-      position: relative;
       padding: 1rem;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      backdrop-filter: blur(5px);
-      transition: transform 0.3s ease;
-    }
-    .qr-container:hover {
-      transform: scale(1.05);
-      border-color: rgba(15, 240, 252, 0.3);
-      box-shadow: 0 0 20px rgba(15, 240, 252, 0.15);
+      border-radius: 8px;
     }
     .qr-image {
       width: 160px;
@@ -480,27 +293,21 @@ export const mainHTML = `<!DOCTYPE html>
       border-radius: 8px;
     }
     .qr-download {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-top: 1.5rem;
-      padding: 0.75rem 1.5rem;
+      display: inline-block;
+      margin-top: 1rem;
+      padding: 0.5rem 1rem;
       font-family: var(--font-mono);
       font-size: 0.75rem;
-      letter-spacing: 0.2em;
       color: var(--text-secondary);
-      background: rgba(0, 0, 0, 0.3);
+      background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      text-transform: uppercase;
+      border-radius: 6px;
       text-decoration: none;
-      transition: all 0.2s ease-out;
+      transition: all 0.2s ease;
     }
     .qr-download:hover {
-      color: #fff;
-      border-color: var(--neon-cyan);
-      background: rgba(15, 240, 252, 0.1);
-      box-shadow: 0 0 15px rgba(15, 240, 252, 0.2);
+      color: var(--accent-primary);
+      border-color: var(--accent-primary);
     }
     .footer {
       margin-top: 4rem;
@@ -511,13 +318,12 @@ export const mainHTML = `<!DOCTYPE html>
       text-transform: uppercase;
     }
     .footer a {
-      color: var(--neon-cyan);
+      color: var(--accent-primary);
       text-decoration: none;
-      transition: all 0.15s ease-out;
+      transition: color 0.2s ease;
     }
     .footer a:hover {
-      color: var(--neon-magenta);
-      text-shadow: 0 0 10px var(--neon-magenta);
+      color: var(--accent-secondary);
     }
     .admin-link {
       position: fixed;
@@ -531,7 +337,7 @@ export const mainHTML = `<!DOCTYPE html>
     }
     .admin-link:hover {
       opacity: 1;
-      color: var(--neon-cyan);
+      color: var(--accent-primary);
     }
   </style>
 </head>
@@ -542,7 +348,7 @@ export const mainHTML = `<!DOCTYPE html>
       <h1 class="logo">
         <span class="logo-prefix">SHRT</span><span class="logo-separator">//</span><span class="logo-suffix">NAME</span>
       </h1>
-      <p class="tagline">COMPRESS//THE//INTERNET</p>
+      <p class="tagline">Fast & Simple URL Shortener</p>
     </header>
 
     <form id="shorten-form" class="form">
@@ -554,10 +360,7 @@ export const mainHTML = `<!DOCTYPE html>
         <input type="text" id="code-input" placeholder="Custom short link (optional)" autocomplete="off" />
       </div>
 
-      <button type="submit" id="submit-btn" style="display: flex; justify-content: center; align-items: center; gap: 10px;">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-        Shorten URL
-      </button>
+      <button type="submit" id="submit-btn">Shorten URL</button>
     </form>
 
     <div id="result">
