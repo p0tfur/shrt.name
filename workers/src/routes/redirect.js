@@ -28,12 +28,20 @@ export async function redirect(request, env, code) {
       }
     }
 
-    // Increment click count in KV (fire and forget for speed)
-    incrementClickCount(env.LINKS, link.id).catch(console.error);
+    // Increment click count in KV
+    try {
+      await incrementClickCount(env.LINKS, link.id);
+    } catch (error) {
+      console.error('Failed to increment click count in KV:', error);
+    }
 
-    // Extract metadata and insert analytics (also fire and forget)
-    const metadata = extractMetadata(request);
-    insertAnalytics(env.DB, link.id, metadata).catch(console.error);
+    // Extract metadata and insert analytics
+    try {
+      const metadata = extractMetadata(request);
+      await insertAnalytics(env.DB, link.id, metadata);
+    } catch (error) {
+      console.error('Failed to insert analytics:', error, 'link.id:', link.id);
+    }
 
     // Return 301 redirect
     return Response.redirect(link.original_url, 301);

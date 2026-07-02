@@ -500,16 +500,9 @@ export const mainHTML = `<!DOCTYPE html>
       }
     });
 
-    viewStatsBtn.addEventListener('click', async () => {
+    viewStatsBtn.addEventListener('click', () => {
       const code = statCode.textContent;
-      const response = await fetch('/api/stats/' + code);
-      const data = await response.json();
-
-      if (data.success) {
-        alert('CLICKS: ' + data.clicks + '\\nCREATED: ' + new Date(data.created_at).toLocaleString());
-      } else {
-        alert('Failed to load statistics.');
-      }
+      window.location.href = '/stats/' + code;
     });
   </script>
 </body>

@@ -11,6 +11,7 @@ import { adminList, adminDelete, adminUpdate } from './routes/admin.js';
 import { errorResponse } from './utils.js';
 import { mainHTML } from './ui.js';
 import { crosspostingHTML } from './seo-pages/crossposting.js';
+import { getStatsHTML } from './stats-page.js';
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -95,6 +96,19 @@ export default {
             'Content-Type': 'text/html;charset=UTF-8',
           }
         });
+      }
+
+      // Stats Page HTML
+      if (path.startsWith('/stats/')) {
+        const code = path.replace('/stats/', '');
+        if (code) {
+          const statsHTML = getStatsHTML(code);
+          return new Response(statsHTML, {
+            headers: {
+              'Content-Type': 'text/html;charset=UTF-8',
+            }
+          });
+        }
       }
 
       // Admin Panel HTML
